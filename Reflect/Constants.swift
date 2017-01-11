@@ -13,8 +13,11 @@ struct Constants {
     
     struct Color {
         
-        static let spaceGray = UIColor(red: 122, green: 136, blue: 151, alpha: 1)
+        static let spaceGray = UIColor(red: 122/255, green: 136/255, blue: 151/255, alpha: 1)
         
+        static let darkGray = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
+        
+        static let blueDark = UIColor(red: 44/255, green: 99/255, blue: 210/255, alpha: 1)
     }
     
 }

@@ -11,10 +11,13 @@ import UIKit
 class LoginViewController: UIViewController {
     
     
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passText: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var mailIcon: UIImageView!
+    @IBOutlet weak var passIcon: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +32,38 @@ class LoginViewController: UIViewController {
         
     }
     
-    func setupView() {
+    @IBAction func emailTextChanged(_ sender: UITextField) {
+    
         
-        emailText.layer.borderWidth = 1
-        emailText.layer.borderColor = Constants.Color.spaceGray.cgColor
-        emailText.layer.masksToBounds = true
+        
+        if sender == emailText && sender.text != "" {
+            
+            emailText.background = UIImage(named: "input-outline-active")
+            mailIcon.image = UIImage(named: "icon-mail-active")
+        
+        } else if sender == emailText && sender.text == "" {
+            
+            emailText.background = UIImage(named: "input-outline")
+            mailIcon.image = UIImage(named: "icon-mail")
 
+        }
+        else if sender == passText && sender.text != "" {
+
+            passText.background = UIImage(named: "input-outline-active")
+            passIcon.image = UIImage(named: "icon-password-active")
+            
+        }
+        else if sender == passText && sender.text == "" {
+    
+            passText.background = UIImage(named: "input-outline")
+            passIcon.image = UIImage(named: "icon-password")
+        }
+        
+        
+        
+    }
+    
+    func setupView() {
         
         emailText.setLeftPaddingPoints(50)
         emailText.setRightPaddingPoints(10)
@@ -43,9 +72,20 @@ class LoginViewController: UIViewController {
         passText.setLeftPaddingPoints(50)
         passText.setRightPaddingPoints(10)
         
-        loginButton.layer.cornerRadius = 2
+        loginButton.layer.cornerRadius = 3
+        
+        loginView.layer.cornerRadius = 3
+        
+        backgroundView.backgroundColor = Constants.Color.darkGray
+        
         
     }
+    
+    
+    
+    
+    
+    
     
     
 }
