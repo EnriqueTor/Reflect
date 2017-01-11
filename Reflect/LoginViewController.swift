@@ -10,7 +10,6 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
-    
     //MARK: - Variables
     let loginView = UIView()
     let backgroundView = UIView()
@@ -22,14 +21,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     let passIcon = UIImageView()
     let loginButton = UIButton()
     
-    
-    
     //MARK: - Loads
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView()
-        
     }
     
     //MARK: - Functions
@@ -58,7 +53,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         loginView.backgroundColor = UIColor.white
         loginView.layer.cornerRadius = 3
         
-        
         //titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         loginView.addSubview(titleLabel)
@@ -66,7 +60,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         titleLabel.topAnchor.constraint(equalTo: loginView.topAnchor, constant: 25).isActive = true
         titleLabel.text = "Log in to"
         titleLabel.font = Constants.Font.title
-        
         
         //subtitleLabel
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -89,8 +82,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         loginButton.titleLabel?.font = Constants.Font.button
         loginButton.titleLabel?.textColor = UIColor.white
         loginButton.layer.cornerRadius = 3
-        loginButton.isEnabled = true
-        loginButton.isUserInteractionEnabled = true
+        loginButton.addTarget(self, action: #selector(LoginViewController.buttonPushed), for: UIControlEvents.touchUpInside)
         
         //passText
         passText.translatesAutoresizingMaskIntoConstraints = false
@@ -107,9 +99,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         passText.textColor = Constants.Color.blueDark
         passText.setLeftPaddingPoints(50)
         passText.setRightPaddingPoints(10)
+        passText.isSecureTextEntry = true
         passText.delegate = self
         passText.addTarget(self, action: #selector(LoginViewController.textFieldDidChange(sender:)), for: UIControlEvents.editingChanged)
-        
         
         //emailText
         emailText.translatesAutoresizingMaskIntoConstraints = false
@@ -148,7 +140,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
 
     }
     
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         emailText.resignFirstResponder()
         passText.resignFirstResponder()
@@ -158,11 +149,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     func textFieldDidChange(sender: UITextField) {
         textChanged(sender)
     }
-    
-    func dismissVC() {
-        dismiss(animated: true, completion: nil)
-    }
-    
     
     func textChanged(_ sender: UITextField) {
         
@@ -184,7 +170,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         }
     }
     
+    func dismissVC() {
+        NotificationCenter.default.post(name: Notification.Name.openWelcomeVC, object: nil)
+    }
     
+    func buttonPushed() {
+        if emailText.text != "" && passText.text != "" {
+            loginButton.isEnabled = true
+            print("tutututu")
+            NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
+        }
+    }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view!.isDescendant(of: loginView) {
+            return false
+        }
+        return true
+    }
     
 }
