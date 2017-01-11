@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
     
     //MARK: - Variables
@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     let loginButton = UIButton()
     
     
+    
     //MARK: - Loads
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Functions
     func setupView() {
         
+        let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissVC))
+        
         //backgroundView
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundView)
@@ -42,6 +45,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         backgroundView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         backgroundView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         backgroundView.backgroundColor = Constants.Color.darkGray
+        backgroundView.isUserInteractionEnabled = true
+        backgroundView.addGestureRecognizer(tapDismiss)
         
         //loginView
         loginView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +57,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginView.widthAnchor.constraint(equalToConstant: 280).isActive = true
         loginView.backgroundColor = UIColor.white
         loginView.layer.cornerRadius = 3
+        
         
         //titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -102,6 +108,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passText.setLeftPaddingPoints(50)
         passText.setRightPaddingPoints(10)
         passText.delegate = self
+        passText.addTarget(self, action: #selector(LoginViewController.textFieldDidChange(sender:)), for: UIControlEvents.editingChanged)
         
         
         //emailText
@@ -120,7 +127,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailText.setLeftPaddingPoints(50)
         emailText.setRightPaddingPoints(10)
         emailText.delegate = self
-        
+        emailText.addTarget(self, action: #selector(LoginViewController.textFieldDidChange(sender:)), for: UIControlEvents.editingChanged)
+
         //mailIcon
         mailIcon.translatesAutoresizingMaskIntoConstraints = false
         loginView.addSubview(mailIcon)
@@ -135,6 +143,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passIcon.trailingAnchor.constraint(equalTo: passText.leadingAnchor, constant: 40).isActive = true
         passIcon.image = UIImage(named: "icon-password")
         
+        //tapDismiss
+        tapDismiss.delegate = self
+
     }
     
     
@@ -144,42 +155,33 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        textChanged(textField)
-        
-        return true
+    func textFieldDidChange(sender: UITextField) {
+        textChanged(sender)
     }
     
+    func dismissVC() {
+        dismiss(animated: true, completion: nil)
+    }
     
     
     func textChanged(_ sender: UITextField) {
         
         if sender == emailText && sender.text != "" {
-            
             emailText.background = UIImage(named: "input-outline-active")
             mailIcon.image = UIImage(named: "icon-mail-active")
-            
-        } else if sender == emailText && sender.text == "" {
-            
+        }
+        else if sender == emailText && sender.text == "" {
             emailText.background = UIImage(named: "input-outline")
             mailIcon.image = UIImage(named: "icon-mail")
-            
         }
         else if sender == passText && sender.text != "" {
-            
             passText.background = UIImage(named: "input-outline-active")
             passIcon.image = UIImage(named: "icon-password-active")
-            
         }
         else if sender == passText && sender.text == "" {
-            
             passText.background = UIImage(named: "input-outline")
             passIcon.image = UIImage(named: "icon-password")
         }
-        
-        
-        
     }
     
     
