@@ -29,6 +29,10 @@ class WelcomeViewController: UIViewController {
         
         
     }
+    
+    @IBAction func loginPushed(_ sender: UIButton) {
+        performSegue(withIdentifier: "loginSegue", sender: self)
+    }
 
     // MARK: - Functions
     
