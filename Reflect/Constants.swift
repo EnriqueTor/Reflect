@@ -20,4 +20,12 @@ struct Constants {
         static let blueDark = UIColor(red: 44/255, green: 99/255, blue: 210/255, alpha: 1)
     }
     
+    struct Font {
+        
+        static let title = UIFont(name: "AvenirNext-Regular", size: 20)
+        static let subtitle = UIFont(name: "AvenirNext-DemiBold", size: 20)
+        static let button = UIFont(name: "AvenirNext-Regular", size: 16)
+    }
+    
+    
 }
