@@ -77,7 +77,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         loginButton.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -15).isActive = true
         loginButton.leadingAnchor.constraint(equalTo: loginView.leadingAnchor, constant: 15).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        loginButton.backgroundColor = Constants.Color.blueDark
+        loginButton.backgroundColor = Constants.Color.orangeCool
         loginButton.setTitle("Log in", for: .normal)
         loginButton.titleLabel?.font = Constants.Font.button
         loginButton.titleLabel?.textColor = UIColor.white
@@ -96,7 +96,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         passText.background = UIImage(named: "input-outline")
         passText.placeholder = "Password"
         passText.font = Constants.Font.button
-        passText.textColor = Constants.Color.blueDark
+        passText.textColor = Constants.Color.orangeCool
         passText.setLeftPaddingPoints(50)
         passText.setRightPaddingPoints(10)
         passText.isSecureTextEntry = true
@@ -115,7 +115,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         emailText.background = UIImage(named: "input-outline")
         emailText.placeholder = "Email"
         emailText.font = Constants.Font.button
-        emailText.textColor = Constants.Color.blueDark
+        emailText.textColor = Constants.Color.orangeCool
+        emailText.autocapitalizationType = .none
         emailText.setLeftPaddingPoints(50)
         emailText.setRightPaddingPoints(10)
         emailText.delegate = self

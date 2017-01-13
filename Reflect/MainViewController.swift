@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class MainViewController: UIViewController {
 
@@ -17,6 +18,7 @@ class MainViewController: UIViewController {
     let footView = UIView()
     let settingView = UIImageView()
     let settingLabel = UILabel()
+    let titleLabel = UILabel()
     
     //MARK: - Loads
     
@@ -28,6 +30,9 @@ class MainViewController: UIViewController {
     //MARK: - Functions
     
     func setupView() {
+        
+        //view
+        view.backgroundColor = Constants.Color.darkGray
         
         //messageView
         messageView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,34 +46,49 @@ class MainViewController: UIViewController {
         //footView
         footView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(footView)
-        footView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        footView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         footView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         footView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         footView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        footView.backgroundColor = Constants.Color.blueDark
+        footView.backgroundColor = Constants.Color.orangeCool
         
-        //settings
+        //subtitleLabel
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        footView.addSubview(titleLabel)
+        titleLabel.centerXAnchor.constraint(equalTo: footView.centerXAnchor).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: footView.centerYAnchor).isActive = true
+        titleLabel.text = "Reflect"
+        titleLabel.font = Constants.Font.subtitle
+        titleLabel.textColor = UIColor.white
+        
+        //settingView
         settingView.translatesAutoresizingMaskIntoConstraints = false
         footView.addSubview(settingView)
-        settingView.centerXAnchor.constraint(equalTo: footView.centerXAnchor).isActive = true
+        settingView.leadingAnchor.constraint(equalTo: footView.leadingAnchor, constant: 15).isActive = true
         settingView.centerYAnchor.constraint(equalTo: footView.centerYAnchor).isActive = true
-        settingView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        settingView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        settingView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        settingView.widthAnchor.constraint(equalToConstant: 20).isActive = true
         settingView.image = UIImage(named: "settings")
         
-        //settingLabel
-        settingLabel.translatesAutoresizingMaskIntoConstraints = false
-        footView.addSubview(settingLabel)
-        settingLabel.topAnchor.constraint(equalTo: settingView.bottomAnchor).isActive = true
-        settingLabel.centerXAnchor.constraint(equalTo: settingView.centerXAnchor).isActive = true
-        settingLabel.text = "Settings"
-        settingLabel.font = Constants.Font.small
-        
+//        //settingLabel
+//        settingLabel.translatesAutoresizingMaskIntoConstraints = false
+//        footView.addSubview(settingLabel)
+//        settingLabel.bottomAnchor.constraint(equalTo: footView.bottomAnchor, constant: -5).isActive = true
+//        settingLabel.centerXAnchor.constraint(equalTo: settingView.centerXAnchor).isActive = true
+//        settingLabel.text = "Settings"
+//        settingLabel.font = Constants.Font.small
+//        settingLabel.textColor = UIColor.white
         
         
     }
-
     
+    //MARK: - Functions
+    
+    
+    
+    override var prefersStatusBarHidden: Bool {
+            return true
 
-
+    }
+   
 }

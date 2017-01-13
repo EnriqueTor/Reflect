@@ -24,6 +24,9 @@ class WelcomeViewController: UIViewController {
     //MARK: - Functions
     func setupView() {
         
+        //view
+        view.backgroundColor = Constants.Color.darkGray
+        
         //loginButton
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginButton)
@@ -31,7 +34,7 @@ class WelcomeViewController: UIViewController {
         loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100).isActive = true
         loginButton.widthAnchor.constraint(equalToConstant: 250).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        loginButton.backgroundColor = Constants.Color.blueDark
+        loginButton.backgroundColor = Constants.Color.orangeCool
         loginButton.setTitle("Log in", for: .normal)
         loginButton.titleLabel?.font = Constants.Font.button
         loginButton.titleLabel?.textColor = UIColor.white
@@ -47,7 +50,7 @@ class WelcomeViewController: UIViewController {
         registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 15).isActive = true
         registerButton.widthAnchor.constraint(equalToConstant: 250).isActive = true
         registerButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        registerButton.backgroundColor = Constants.Color.blueDark
+        registerButton.backgroundColor = Constants.Color.orangeCool
         registerButton.setTitle("Register", for: .normal)
         registerButton.titleLabel?.font = Constants.Font.button
         registerButton.titleLabel?.textColor = UIColor.white

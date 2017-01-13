@@ -20,7 +20,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
     let nameText = UITextField()
     let mailIcon = UIImageView()
     let passIcon = UIImageView()
-    let loginButton = UIButton()
+    let registerButton = UIButton()
+    let profileIcon = UIImageView()
     
     //MARK: - Loads
     override func viewDidLoad() {
@@ -70,27 +71,27 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         subtitleLabel.text = "Reflect"
         subtitleLabel.font = Constants.Font.subtitle
         
-        //loginButton
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        registerView.addSubview(loginButton)
-        loginButton.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
-        loginButton.bottomAnchor.constraint(equalTo: registerView.bottomAnchor, constant: -15).isActive = true
-        loginButton.trailingAnchor.constraint(equalTo: registerView.trailingAnchor, constant: -15).isActive = true
-        loginButton.leadingAnchor.constraint(equalTo: registerView.leadingAnchor, constant: 15).isActive = true
-        loginButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        loginButton.backgroundColor = Constants.Color.blueDark
-        loginButton.setTitle("Log in", for: .normal)
-        loginButton.titleLabel?.font = Constants.Font.button
-        loginButton.titleLabel?.textColor = UIColor.white
-        loginButton.layer.cornerRadius = 3
-        loginButton.isEnabled = true
-        loginButton.isUserInteractionEnabled = true
+        //registerButton
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
+        registerView.addSubview(registerButton)
+        registerButton.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
+        registerButton.bottomAnchor.constraint(equalTo: registerView.bottomAnchor, constant: -15).isActive = true
+        registerButton.trailingAnchor.constraint(equalTo: registerView.trailingAnchor, constant: -15).isActive = true
+        registerButton.leadingAnchor.constraint(equalTo: registerView.leadingAnchor, constant: 15).isActive = true
+        registerButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        registerButton.backgroundColor = Constants.Color.orangeCool
+        registerButton.setTitle("Register", for: .normal)
+        registerButton.titleLabel?.font = Constants.Font.button
+        registerButton.titleLabel?.textColor = UIColor.white
+        registerButton.layer.cornerRadius = 3
+        registerButton.isEnabled = true 
+        registerButton.isUserInteractionEnabled = true
         
         //passText
         passText.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(passText)
         passText.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
-        passText.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -15).isActive = true
+        passText.bottomAnchor.constraint(equalTo: registerButton.topAnchor, constant: -15).isActive = true
         passText.trailingAnchor.constraint(equalTo: registerView.trailingAnchor, constant: -15).isActive = true
         passText.leadingAnchor.constraint(equalTo: registerView.leadingAnchor, constant: 15).isActive = true
         passText.heightAnchor.constraint(equalToConstant: 44).isActive = true
@@ -98,7 +99,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         passText.background = UIImage(named: "input-outline")
         passText.placeholder = "Password"
         passText.font = Constants.Font.button
-        passText.textColor = Constants.Color.blueDark
+        passText.textColor = Constants.Color.orangeCool
         passText.setLeftPaddingPoints(50)
         passText.setRightPaddingPoints(10)
         passText.isSecureTextEntry = true
@@ -117,13 +118,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         emailText.background = UIImage(named: "input-outline")
         emailText.placeholder = "Email"
         emailText.font = Constants.Font.button
-        emailText.textColor = Constants.Color.blueDark
+        emailText.textColor = Constants.Color.orangeCool
+        emailText.autocapitalizationType = .none
         emailText.setLeftPaddingPoints(50)
         emailText.setRightPaddingPoints(10)
         emailText.delegate = self
         emailText.addTarget(self, action: #selector(LoginViewController.textFieldDidChange(sender:)), for: UIControlEvents.editingChanged)
         
-        //emailText
+        //nameText
         nameText.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(nameText)
         nameText.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
@@ -135,7 +137,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         nameText.background = UIImage(named: "input-outline")
         nameText.placeholder = "Name"
         nameText.font = Constants.Font.button
-        nameText.textColor = Constants.Color.blueDark
+        nameText.textColor = Constants.Color.orangeCool
+        nameText.autocapitalizationType = .words
         nameText.setLeftPaddingPoints(50)
         nameText.setRightPaddingPoints(10)
         nameText.delegate = self
@@ -155,6 +158,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         passIcon.centerYAnchor.constraint(equalTo: passText.centerYAnchor).isActive = true
         passIcon.trailingAnchor.constraint(equalTo: passText.leadingAnchor, constant: 40).isActive = true
         passIcon.image = UIImage(named: "icon-password")
+        
+        //profileIcon
+        profileIcon.translatesAutoresizingMaskIntoConstraints = false
+        registerView.addSubview(profileIcon)
+        profileIcon.centerYAnchor.constraint(equalTo: nameText.centerYAnchor).isActive = true
+        profileIcon.trailingAnchor.constraint(equalTo: nameText.leadingAnchor, constant: 44).isActive = true
+        profileIcon.heightAnchor.constraint(equalToConstant: 23.5).isActive = true
+        profileIcon.widthAnchor.constraint(equalToConstant: 34).isActive = true
+        profileIcon.image = UIImage(named: "profile")
         
         //tapDismiss
         tapDismiss.delegate = self
@@ -188,6 +200,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         else if sender == passText && sender.text == "" {
             passText.background = UIImage(named: "input-outline")
             passIcon.image = UIImage(named: "icon-password")
+        }
+        else if sender == nameText && sender.text != "" {
+            nameText.background = UIImage(named: "input-outline-active")
+            profileIcon.image = UIImage(named: "profile-active")
+        }
+        else if sender == nameText && sender.text == "" {
+            nameText.background = UIImage(named: "input-outline")
+            profileIcon.image = UIImage(named: "profile")
         }
     }
     
