@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB0675961E28585200B4EF9A /* Main2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0675951E28585200B4EF9A /* Main2ViewController.swift */; };
+		BB0675981E285D3500B4EF9A /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0675971E285D3500B4EF9A /* HabitCollectionViewCell.swift */; };
+		BB06759A1E28847800B4EF9A /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0675991E28847800B4EF9A /* Habit.swift */; };
 		BB5283911E25B4B400047A07 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283901E25B4B400047A07 /* WelcomeViewController.swift */; };
 		BB5283931E25B4C200047A07 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283921E25B4C200047A07 /* LoginViewController.swift */; };
 		BB5283951E25B4CD00047A07 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283941E25B4CD00047A07 /* RegisterViewController.swift */; };
@@ -41,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB0675951E28585200B4EF9A /* Main2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main2ViewController.swift; sourceTree = "<group>"; };
+		BB0675971E285D3500B4EF9A /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
+		BB0675991E28847800B4EF9A /* Habit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		BB5283901E25B4B400047A07 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		BB5283921E25B4C200047A07 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BB5283941E25B4CD00047A07 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +100,8 @@
 				BB87919D1E26AD0A00A8729A /* AppController.swift */,
 				BB5283921E25B4C200047A07 /* LoginViewController.swift */,
 				BB87919B1E26A78600A8729A /* MainViewController.swift */,
+				BB0675951E28585200B4EF9A /* Main2ViewController.swift */,
+				BB0675971E285D3500B4EF9A /* HabitCollectionViewCell.swift */,
 				BB5283941E25B4CD00047A07 /* RegisterViewController.swift */,
 				BB5283901E25B4B400047A07 /* WelcomeViewController.swift */,
 			);
@@ -125,6 +133,7 @@
 			children = (
 				BB7ADD9F1E25DD6E0027DDBD /* Extensions.swift */,
 				BB7ADDA21E25E5250027DDBD /* Constants.swift */,
+				BB0675991E28847800B4EF9A /* Habit.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -319,8 +328,11 @@
 				BBFB441F1E216AA10002E30C /* AppDelegate.swift in Sources */,
 				BB5283951E25B4CD00047A07 /* RegisterViewController.swift in Sources */,
 				BB5283931E25B4C200047A07 /* LoginViewController.swift in Sources */,
+				BB0675981E285D3500B4EF9A /* HabitCollectionViewCell.swift in Sources */,
 				BBFB44271E216AA10002E30C /* Reflect.xcdatamodeld in Sources */,
+				BB06759A1E28847800B4EF9A /* Habit.swift in Sources */,
 				BB87919E1E26AD0A00A8729A /* AppController.swift in Sources */,
+				BB0675961E28585200B4EF9A /* Main2ViewController.swift in Sources */,
 				BB7ADDA01E25DD6E0027DDBD /* Extensions.swift in Sources */,
 				BB7ADDA31E25E5250027DDBD /* Constants.swift in Sources */,
 				BB87919C1E26A78600A8729A /* MainViewController.swift in Sources */,
