@@ -26,7 +26,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
     let passIcon = UIImageView()
     let registerButton = UIButton()
     let profileIcon = UIImageView()
-    let MyKeychainWrapper = KeychainWrapper()
+    let myKeychainWrapper = KeychainWrapper()
     let database = FIRDatabase.database().reference()
     
     let store = DataStore.sharedInstance
@@ -275,8 +275,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         UserDefaults.standard.setValue(name, forKey: "name")
         UserDefaults.standard.setValue(email, forKey: "email")
         
-        MyKeychainWrapper.mySetObject(passText.text, forKey:kSecValueData)
-        MyKeychainWrapper.writeToKeychain()
+        myKeychainWrapper.mySetObject(passText.text, forKey:kSecValueData)
+        myKeychainWrapper.writeToKeychain()
         UserDefaults.standard.synchronize()
         
     }

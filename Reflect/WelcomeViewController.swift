@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class WelcomeViewController: UIViewController {
     
@@ -15,12 +16,16 @@ class WelcomeViewController: UIViewController {
     let titleLabel = UILabel()
     let registerButton = UIButton()
     let reflectIcon = UIImageView()
- 
+    let errorLabel = UILabel()
+    let myKeychainWrapper = KeychainWrapper()
+    let store = DataStore.sharedInstance
+    
     // MARK: - Loads
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        login()
     }
     
     //MARK: - Functions
@@ -46,7 +51,7 @@ class WelcomeViewController: UIViewController {
         titleLabel.text = "Reflect"
         titleLabel.font = Constants.Font.iconTitle
         titleLabel.textColor = UIColor.white
-
+        
         
         //loginButton
         loginButton.translatesAutoresizingMaskIntoConstraints = false
@@ -79,6 +84,18 @@ class WelcomeViewController: UIViewController {
         registerButton.isEnabled = true
         registerButton.isUserInteractionEnabled = true
         registerButton.addTarget(self, action: #selector(WelcomeViewController.registerPushed), for: UIControlEvents.touchUpInside)
+        
+        //MARK: errorLabel
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorLabel)
+        errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        errorLabel.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -5).isActive = true
+        errorLabel.widthAnchor.constraint(equalTo: loginButton.widthAnchor).isActive = true
+        errorLabel.textColor = UIColor.red
+        errorLabel.font = Constants.Font.small
+        errorLabel.numberOfLines = 2
+        errorLabel.textAlignment = .center
+        
     }
     
     func loginPushed() {
@@ -89,5 +106,30 @@ class WelcomeViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name.openRegisterVC, object: nil)
     }
     
+    func login() {
+        
+        if UserDefaults.standard.value(forKey: "email") as? String == nil {
+        }
+        else {
+            
+            //        if UserDefaults.standard.value(forKey: "email") as? String != "" {
+            
+//            let name = UserDefaults.standard.value(forKey: "name") as? String
+            let email = UserDefaults.standard.value(forKey: "email") as? String
+            let pass = myKeychainWrapper.myObject(forKey: "v_Data") as? String
+            
+            FIRAuth.auth()?.signIn(withEmail: email!, password: pass!) { (user, error) in
+                if let error = error {
+                    self.errorLabel.text = error.localizedDescription
+                }
+                self.store.user.id = (user?.uid)!
+//                self.store.user.name = name!
+                self.store.user.email = email!
+                
+                NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
+            }
+            
+        }
+    }
     
 }

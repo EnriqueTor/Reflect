@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
@@ -19,7 +20,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     let passText = UITextField()
     let mailIcon = UIImageView()
     let passIcon = UIImageView()
+    let errorLabel = UILabel()
     let loginButton = UIButton()
+    let database = FIRDatabase.database().reference()
+    let store = DataStore.sharedInstance
+    let myKeychainWrapper = KeychainWrapper()
     
     //MARK: - Loads
     override func viewDidLoad() {
@@ -32,7 +37,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         
         let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissVC))
         
-        //backgroundView
+        //MARK: backgroundView
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundView)
         backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -43,7 +48,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         backgroundView.isUserInteractionEnabled = true
         backgroundView.addGestureRecognizer(tapDismiss)
         
-        //loginView
+        //MARK: loginView
         loginView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.addSubview(loginView)
         loginView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
@@ -53,7 +58,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         loginView.backgroundColor = UIColor.white
         loginView.layer.cornerRadius = 3
         
-        //titleLabel
+        //MARK: titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         loginView.addSubview(titleLabel)
         titleLabel.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
@@ -61,7 +66,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         titleLabel.text = "Log in to"
         titleLabel.font = Constants.Font.title
         
-        //subtitleLabel
+        //MARK: subtitleLabel
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         loginView.addSubview(subtitleLabel)
         subtitleLabel.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
@@ -69,7 +74,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         subtitleLabel.text = "Reflect"
         subtitleLabel.font = Constants.Font.subtitle
         
-        //loginButton
+        //MARK: loginButton
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginView.addSubview(loginButton)
         loginButton.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
@@ -82,9 +87,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         loginButton.titleLabel?.font = Constants.Font.button
         loginButton.titleLabel?.textColor = UIColor.white
         loginButton.layer.cornerRadius = 3
-        loginButton.addTarget(self, action: #selector(LoginViewController.buttonPushed), for: UIControlEvents.touchUpInside)
+        loginButton.addTarget(self, action: #selector(LoginViewController.loginPushed), for: UIControlEvents.touchUpInside)
         
-        //passText
+        //MARK: passText
         passText.translatesAutoresizingMaskIntoConstraints = false
         loginView.addSubview(passText)
         passText.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
@@ -103,7 +108,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         passText.delegate = self
         passText.addTarget(self, action: #selector(LoginViewController.textFieldDidChange(sender:)), for: UIControlEvents.editingChanged)
         
-        //emailText
+        //MARK: emailText
         emailText.translatesAutoresizingMaskIntoConstraints = false
         loginView.addSubview(emailText)
         emailText.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
@@ -121,22 +126,33 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         emailText.setRightPaddingPoints(10)
         emailText.delegate = self
         emailText.addTarget(self, action: #selector(LoginViewController.textFieldDidChange(sender:)), for: UIControlEvents.editingChanged)
+        
+        //MARK: errorLabel
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        loginView.addSubview(errorLabel)
+        errorLabel.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
+        errorLabel.bottomAnchor.constraint(equalTo: emailText.topAnchor, constant: -5).isActive = true
+        errorLabel.widthAnchor.constraint(equalTo: emailText.widthAnchor).isActive = true
+        errorLabel.textColor = UIColor.red
+        errorLabel.font = Constants.Font.small
+        errorLabel.numberOfLines = 2
+        errorLabel.textAlignment = .center
 
-        //mailIcon
+        //MARK: mailIcon
         mailIcon.translatesAutoresizingMaskIntoConstraints = false
         loginView.addSubview(mailIcon)
         mailIcon.centerYAnchor.constraint(equalTo: emailText.centerYAnchor).isActive = true
         mailIcon.trailingAnchor.constraint(equalTo: emailText.leadingAnchor, constant: 40).isActive = true
         mailIcon.image = UIImage(named: "icon-mail")
         
-        //passIcon
+        //MARK: passIcon
         passIcon.translatesAutoresizingMaskIntoConstraints = false
         loginView.addSubview(passIcon)
         passIcon.centerYAnchor.constraint(equalTo: passText.centerYAnchor).isActive = true
         passIcon.trailingAnchor.constraint(equalTo: passText.leadingAnchor, constant: 40).isActive = true
         passIcon.image = UIImage(named: "icon-password")
         
-        //tapDismiss
+        //MARK: tapDismiss
         tapDismiss.delegate = self
 
     }
@@ -175,11 +191,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         NotificationCenter.default.post(name: Notification.Name.openWelcomeVC, object: nil)
     }
     
-    func buttonPushed() {
+    func loginPushed() {
+        
         if emailText.text != "" && passText.text != "" {
             loginButton.isEnabled = true
-            print("tutututu")
-            NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
+            let email = emailText.text
+            let pass = passText.text
+            
+            FIRAuth.auth()?.signIn(withEmail: email!, password: pass!) { (user, error) in
+                if let error = error {
+                    self.errorLabel.text = error.localizedDescription
+                }
+                self.store.user.id = (user?.uid)!
+                //TODO: we need to bring the store.user.name
+                self.store.user.email = email!
+                
+                self.addDataToKeychain(email: email!, pass: pass!)
+                
+                NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
+                
+            }
         }
     }
     
@@ -189,5 +220,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         }
         return true
     }
+    
+    func addDataToKeychain(email: String, pass: String) {
+        
+        // TODO: UserDefaults.standard.setValue(id, forKey: "id")
+        // TODO: UserDefaults.standard.setValue(name, forKey: "name")
+        UserDefaults.standard.setValue(email, forKey: "email")
+        
+        myKeychainWrapper.mySetObject(pass, forKey:kSecValueData)
+        myKeychainWrapper.writeToKeychain()
+        UserDefaults.standard.synchronize()
+        
+    }
+
     
 }
