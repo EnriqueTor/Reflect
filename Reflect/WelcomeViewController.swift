@@ -59,7 +59,7 @@ class WelcomeViewController: UIViewController {
         loginButton.setTitle("Log in", for: .normal)
         loginButton.titleLabel?.font = Constants.Font.button
         loginButton.titleLabel?.textColor = UIColor.white
-        loginButton.layer.cornerRadius = 3
+        loginButton.layer.cornerRadius = Constants.Sizes.buttonCorner
         loginButton.isEnabled = true
         loginButton.isUserInteractionEnabled = true
         loginButton.addTarget(self, action: #selector(WelcomeViewController.loginPushed), for: UIControlEvents.touchUpInside)
@@ -75,7 +75,7 @@ class WelcomeViewController: UIViewController {
         registerButton.setTitle("Register", for: .normal)
         registerButton.titleLabel?.font = Constants.Font.button
         registerButton.titleLabel?.textColor = UIColor.white
-        registerButton.layer.cornerRadius = 3
+        registerButton.layer.cornerRadius = Constants.Sizes.buttonCorner
         registerButton.isEnabled = true
         registerButton.isUserInteractionEnabled = true
         registerButton.addTarget(self, action: #selector(WelcomeViewController.registerPushed), for: UIControlEvents.touchUpInside)

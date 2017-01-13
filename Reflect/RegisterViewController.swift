@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import SwiftKeychainWrapper
 
 class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
@@ -15,6 +18,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
     let backgroundView = UIView()
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
+    let errorLabel = UILabel()
     let emailText = UITextField()
     let passText = UITextField()
     let nameText = UITextField()
@@ -22,6 +26,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
     let passIcon = UIImageView()
     let registerButton = UIButton()
     let profileIcon = UIImageView()
+    let MyKeychainWrapper = KeychainWrapper()
+    let database = FIRDatabase.database().reference()
+    
+    let store = DataStore.sharedInstance
     
     //MARK: - Loads
     override func viewDidLoad() {
@@ -34,7 +42,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         
         let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissVC))
         
-        //backgroundView
+        //MARK: backgroundView
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundView)
         backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -45,7 +53,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         backgroundView.isUserInteractionEnabled = true
         backgroundView.addGestureRecognizer(tapDismiss)
         
-        //registerView
+        //MARK: registerView
         registerView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.addSubview(registerView)
         registerView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
@@ -55,7 +63,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         registerView.backgroundColor = UIColor.white
         registerView.layer.cornerRadius = 3
         
-        //titleLabel
+        //MARK: titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(titleLabel)
         titleLabel.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
@@ -63,7 +71,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         titleLabel.text = "Register to"
         titleLabel.font = Constants.Font.title
         
-        //subtitleLabel
+        //MARK: subtitleLabel
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(subtitleLabel)
         subtitleLabel.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
@@ -71,7 +79,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         subtitleLabel.text = "Reflect"
         subtitleLabel.font = Constants.Font.subtitle
         
-        //registerButton
+        //MARK: registerButton
         registerButton.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(registerButton)
         registerButton.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
@@ -83,11 +91,12 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         registerButton.setTitle("Register", for: .normal)
         registerButton.titleLabel?.font = Constants.Font.button
         registerButton.titleLabel?.textColor = UIColor.white
-        registerButton.layer.cornerRadius = 3
-        registerButton.isEnabled = true 
+        registerButton.layer.cornerRadius = Constants.Sizes.buttonCorner
+        registerButton.isEnabled = true
         registerButton.isUserInteractionEnabled = true
+        registerButton.addTarget(self, action: #selector(RegisterViewController.register), for: UIControlEvents.touchUpInside)
         
-        //passText
+        //MARK: passText
         passText.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(passText)
         passText.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
@@ -106,7 +115,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         passText.delegate = self
         passText.addTarget(self, action: #selector(LoginViewController.textFieldDidChange(sender:)), for: UIControlEvents.editingChanged)
         
-        //emailText
+        //MARK: emailText
         emailText.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(emailText)
         emailText.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
@@ -125,7 +134,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         emailText.delegate = self
         emailText.addTarget(self, action: #selector(LoginViewController.textFieldDidChange(sender:)), for: UIControlEvents.editingChanged)
         
-        //nameText
+        //MARK: nameText
         nameText.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(nameText)
         nameText.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
@@ -144,22 +153,31 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         nameText.delegate = self
         nameText.addTarget(self, action: #selector(LoginViewController.textFieldDidChange(sender:)), for: UIControlEvents.editingChanged)
         
+        //MARK: errorLabel
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        registerView.addSubview(errorLabel)
+        errorLabel.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
+        errorLabel.bottomAnchor.constraint(equalTo: nameText.topAnchor, constant: -5).isActive = true
+        errorLabel.widthAnchor.constraint(equalTo: nameText.widthAnchor).isActive = true
+        errorLabel.textColor = UIColor.red
+        errorLabel.font = Constants.Font.small
+        errorLabel.numberOfLines = 1
         
-        //mailIcon
+        //MARK: mailIcon
         mailIcon.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(mailIcon)
         mailIcon.centerYAnchor.constraint(equalTo: emailText.centerYAnchor).isActive = true
         mailIcon.trailingAnchor.constraint(equalTo: emailText.leadingAnchor, constant: 40).isActive = true
         mailIcon.image = UIImage(named: "icon-mail")
         
-        //passIcon
+        //MARK: passIcon
         passIcon.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(passIcon)
         passIcon.centerYAnchor.constraint(equalTo: passText.centerYAnchor).isActive = true
         passIcon.trailingAnchor.constraint(equalTo: passText.leadingAnchor, constant: 40).isActive = true
         passIcon.image = UIImage(named: "icon-password")
         
-        //profileIcon
+        //MARK: profileIcon
         profileIcon.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(profileIcon)
         profileIcon.centerYAnchor.constraint(equalTo: nameText.centerYAnchor).isActive = true
@@ -168,7 +186,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         profileIcon.widthAnchor.constraint(equalToConstant: 34).isActive = true
         profileIcon.image = UIImage(named: "profile")
         
-        //tapDismiss
+        //MARK: tapDismiss
         tapDismiss.delegate = self
         
     }
@@ -220,6 +238,44 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
             return false
         }
         return true
+    }
+    
+    func register() {
+        
+        guard let name = nameText.text, let email = emailText.text, let password = passText.text else { return }
+        
+        FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
+            if let error = error {
+                self.errorLabel.text = error.localizedDescription
+                return
+            }
+            FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                self.store.user.id = (user?.uid)!
+                self.store.user.name = name
+                self.store.user.email = email
+                
+                addDataToKeychain(id: (user?.uid)!, name: name, email: email)
+                
+                self.database.child(self.store.user.id).child("name").setValue(self.store.user.name)
+                self.database.child(self.store.user.id).child("email").setValue(self.store.user.email)
+                
+            }
+        }
+    }
+    
+    func addDataToKeychain(id: String, name: String, email: String) {
+        
+        UserDefaults.standard.setValue(id, forKey: "id")
+        UserDefaults.standard.setValue(name, forKey: "name")
+        UserDefaults.standard.setValue(email, forKey: "email")
+        
+        MyKeychainWrapper.mySetObject(passText.text, forKey:kSecValueData)
+        MyKeychainWrapper.writeToKeychain()
+        UserDefaults.standard.synchronize()
+        
     }
     
 }

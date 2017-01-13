@@ -19,6 +19,8 @@
 		BB87919C1E26A78600A8729A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87919B1E26A78600A8729A /* MainViewController.swift */; };
 		BB87919E1E26AD0A00A8729A /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87919D1E26AD0A00A8729A /* AppController.swift */; };
 		BBA4C2681E28BACB006BFEAE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C2671E28BACB006BFEAE /* User.swift */; };
+		BBA4C26C1E28C804006BFEAE /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C26B1E28C804006BFEAE /* KeychainWrapper.m */; };
+		BBA4C26E1E28C8B5006BFEAE /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C26D1E28C8B5006BFEAE /* DataStore.swift */; };
 		BBE465D51E288B9A00E7F583 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBE465D41E288B9A00E7F583 /* Assets.xcassets */; };
 		BBE465D71E28B47000E7F583 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBE465D61E28B47000E7F583 /* GoogleService-Info.plist */; };
 		BBFB441F1E216AA10002E30C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFB441E1E216AA10002E30C /* AppDelegate.swift */; };
@@ -65,6 +67,11 @@
 		BB87919B1E26A78600A8729A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BB87919D1E26AD0A00A8729A /* AppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		BBA4C2671E28BACB006BFEAE /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BBA4C2691E28C803006BFEAE /* Reflect-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Reflect-Bridging-Header.h"; sourceTree = "<group>"; };
+		BBA4C26A1E28C804006BFEAE /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
+		BBA4C26B1E28C804006BFEAE /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
+		BBA4C26D1E28C8B5006BFEAE /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		BBA4C26F1E28CA6D006BFEAE /* Reflect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Reflect.entitlements; sourceTree = "<group>"; };
 		BBE465D41E288B9A00E7F583 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BBE465D61E28B47000E7F583 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BBFB441B1E216AA10002E30C /* Reflect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reflect.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,10 +170,13 @@
 			children = (
 				BBFB441E1E216AA10002E30C /* AppDelegate.swift */,
 				BBE465D61E28B47000E7F583 /* GoogleService-Info.plist */,
+				BBA4C26A1E28C804006BFEAE /* KeychainWrapper.h */,
+				BBA4C26B1E28C804006BFEAE /* KeychainWrapper.m */,
 				BBE465D41E288B9A00E7F583 /* Assets.xcassets */,
 				BBFB442D1E216AA10002E30C /* Info.plist */,
 				BBFB442A1E216AA10002E30C /* LaunchScreen.storyboard */,
 				BBFB44251E216AA10002E30C /* Reflect.xcdatamodeld */,
+				BBA4C2691E28C803006BFEAE /* Reflect-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -178,6 +188,7 @@
 				BB7ADDA21E25E5250027DDBD /* Constants.swift */,
 				BBA4C2671E28BACB006BFEAE /* User.swift */,
 				BB0675991E28847800B4EF9A /* Habit.swift */,
+				BBA4C26D1E28C8B5006BFEAE /* DataStore.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -207,6 +218,7 @@
 		BBFB441D1E216AA10002E30C /* Reflect */ = {
 			isa = PBXGroup;
 			children = (
+				BBA4C26F1E28CA6D006BFEAE /* Reflect.entitlements */,
 				BB7ADD9C1E25DCA60027DDBD /* View Controller */,
 				BB7ADDA11E25DD730027DDBD /* Model */,
 				BB7ADD9D1E25DCC30027DDBD /* View */,
@@ -311,7 +323,13 @@
 					BBFB441A1E216AA10002E30C = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3SZW3Z4QTH;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					BBFB44311E216AA10002E30C = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -529,7 +547,9 @@
 				BB87919E1E26AD0A00A8729A /* AppController.swift in Sources */,
 				BB0675961E28585200B4EF9A /* Main2ViewController.swift in Sources */,
 				BB7ADDA01E25DD6E0027DDBD /* Extensions.swift in Sources */,
+				BBA4C26C1E28C804006BFEAE /* KeychainWrapper.m in Sources */,
 				BB7ADDA31E25E5250027DDBD /* Constants.swift in Sources */,
+				BBA4C26E1E28C8B5006BFEAE /* DataStore.swift in Sources */,
 				BB87919C1E26A78600A8729A /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -683,11 +703,15 @@
 			baseConfigurationReference = 9345554C9AC699CD64F4374F /* Pods-Reflect.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Reflect/Reflect.entitlements;
 				DEVELOPMENT_TEAM = 3SZW3Z4QTH;
 				INFOPLIST_FILE = Reflect/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Tor.Reflect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Reflect/Reflect-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -697,11 +721,14 @@
 			baseConfigurationReference = 7057CFD29543839FB06CF071 /* Pods-Reflect.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Reflect/Reflect.entitlements;
 				DEVELOPMENT_TEAM = 3SZW3Z4QTH;
 				INFOPLIST_FILE = Reflect/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Tor.Reflect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Reflect/Reflect-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

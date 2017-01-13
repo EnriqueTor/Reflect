@@ -35,5 +35,10 @@ struct Constants {
         static let iconTitle = UIFont(name: "AvenirNext-DemiBold", size: 45)
     }
     
+    struct Sizes {
+        
+        static let buttonCorner = CGFloat(5)
+        
+    }
     
 }
