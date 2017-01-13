@@ -35,8 +35,8 @@ class WelcomeViewController: UIViewController {
         view.addSubview(reflectIcon)
         reflectIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         reflectIcon.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150).isActive = true
-        reflectIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        reflectIcon.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        reflectIcon.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        reflectIcon.widthAnchor.constraint(equalToConstant: 150).isActive = true
         
         //titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
