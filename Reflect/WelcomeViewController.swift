@@ -12,7 +12,9 @@ class WelcomeViewController: UIViewController {
     
     // MARK: - Variables
     let loginButton = UIButton()
+    let titleLabel = UILabel()
     let registerButton = UIButton()
+    let reflectIcon = UIImageView()
  
     // MARK: - Loads
     
@@ -27,11 +29,30 @@ class WelcomeViewController: UIViewController {
         //view
         view.backgroundColor = Constants.Color.darkGray
         
+        //reflectIcon
+        reflectIcon.image = UIImage(named: "circleLogo")
+        reflectIcon.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(reflectIcon)
+        reflectIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        reflectIcon.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150).isActive = true
+        reflectIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        reflectIcon.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        
+        //titleLabel
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleLabel)
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: reflectIcon.bottomAnchor, constant: 5).isActive = true
+        titleLabel.text = "Reflect"
+        titleLabel.font = Constants.Font.iconTitle
+        titleLabel.textColor = UIColor.white
+
+        
         //loginButton
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginButton)
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100).isActive = true
+        loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150).isActive = true
         loginButton.widthAnchor.constraint(equalToConstant: 250).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         loginButton.backgroundColor = Constants.Color.orangeCool

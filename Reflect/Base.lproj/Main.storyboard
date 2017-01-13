@@ -93,7 +93,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q0s-ed-WbL">
                                 <rect key="frame" x="0.0" y="60" width="375" height="557"/>
-                                <color key="backgroundColor" red="0.97647058823529409" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="habitCell" rowHeight="88" id="nTF-Iw-Ndb" customClass="HabitTableViewCell" customModule="Reflect" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="88"/>
@@ -111,7 +111,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circleFour" translatesAutoresizingMaskIntoConstraints="NO" id="pel-Mc-KB2">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle0" translatesAutoresizingMaskIntoConstraints="NO" id="pel-Mc-KB2">
                                                             <rect key="frame" x="285" y="14" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
@@ -136,6 +136,7 @@
                                         <connections>
                                             <outlet property="cellView" destination="O04-K2-dsx" id="1u4-3w-X5w"/>
                                             <outlet property="habitLabel" destination="dYX-Sn-ggW" id="DGV-Rk-KiE"/>
+                                            <outlet property="reflectImage" destination="pel-Mc-KB2" id="T5a-pa-ecd"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -194,6 +195,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="circleFour" width="600" height="600"/>
+        <image name="circle0" width="600" height="600"/>
     </resources>
 </document>

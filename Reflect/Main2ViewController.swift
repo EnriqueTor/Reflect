@@ -12,12 +12,26 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var tableView: UITableView!
     
-    var habits: [String] = ["Hello","Eat more veggies", "Read", "Run"]
+    var habits: [Habit] = []
+    
+    var one = Habit(id: "1", name: "Run", startingTime: "", finishDate: "", archive: "3")
+    
+    var two = Habit(id: "2", name: "Read", startingTime: "", finishDate: "", archive: "1")
+    
+    var three = Habit(id: "3", name: "Eat healthy", startingTime: "", finishDate: "", archive: "2")
+    
+    var four = Habit(id: "4", name: "Play soccer", startingTime: "", finishDate: "", archive: "5")
+    
+    var five = Habit(id: "4", name: "Do the dishes", startingTime: "", finishDate: "", archive: "4")
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-    
+        createTask()
+        
+        habits = [one, two, three, four, five]
         
     }
     
@@ -26,6 +40,13 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()
+        
+    }
+    
+    func createTask() {
+        
+        
+        
         
     }
     
@@ -41,7 +62,12 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "habitCell", for: indexPath) as! HabitTableViewCell
         
-        cell.habitLabel.text = habits[indexPath.row]
+        cell.habitLabel.text = habits[indexPath.row].name
+        
+        var imageNumber = "circle\(habits[indexPath.row].archive)"
+        
+        cell.reflectImage.image = UIImage(named: imageNumber)
+        
         cell.cellView.layer.cornerRadius = 3
         
         return cell

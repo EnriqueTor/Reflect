@@ -14,4 +14,6 @@ class HabitTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cellView: UIView!
     
+    @IBOutlet weak var reflectImage: UIImageView!
+    
 }

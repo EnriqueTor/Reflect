@@ -17,10 +17,10 @@
 		BB7ADDA31E25E5250027DDBD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7ADDA21E25E5250027DDBD /* Constants.swift */; };
 		BB87919C1E26A78600A8729A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87919B1E26A78600A8729A /* MainViewController.swift */; };
 		BB87919E1E26AD0A00A8729A /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87919D1E26AD0A00A8729A /* AppController.swift */; };
+		BBE465D51E288B9A00E7F583 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBE465D41E288B9A00E7F583 /* Assets.xcassets */; };
 		BBFB441F1E216AA10002E30C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFB441E1E216AA10002E30C /* AppDelegate.swift */; };
 		BBFB44241E216AA10002E30C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBFB44221E216AA10002E30C /* Main.storyboard */; };
 		BBFB44271E216AA10002E30C /* Reflect.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BBFB44251E216AA10002E30C /* Reflect.xcdatamodeld */; };
-		BBFB44291E216AA10002E30C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBFB44281E216AA10002E30C /* Assets.xcassets */; };
 		BBFB442C1E216AA10002E30C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBFB442A1E216AA10002E30C /* LaunchScreen.storyboard */; };
 		BBFB44371E216AA10002E30C /* ReflectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFB44361E216AA10002E30C /* ReflectTests.swift */; };
 		BBFB44421E216AA10002E30C /* ReflectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFB44411E216AA10002E30C /* ReflectUITests.swift */; };
@@ -54,11 +54,11 @@
 		BB7ADDA21E25E5250027DDBD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BB87919B1E26A78600A8729A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BB87919D1E26AD0A00A8729A /* AppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
+		BBE465D41E288B9A00E7F583 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BBFB441B1E216AA10002E30C /* Reflect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reflect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBFB441E1E216AA10002E30C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBFB44231E216AA10002E30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BBFB44261E216AA10002E30C /* Reflect.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reflect.xcdatamodel; sourceTree = "<group>"; };
-		BBFB44281E216AA10002E30C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BBFB442B1E216AA10002E30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BBFB442D1E216AA10002E30C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BBFB44321E216AA10002E30C /* ReflectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReflectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,7 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				BBFB441E1E216AA10002E30C /* AppDelegate.swift */,
-				BBFB44281E216AA10002E30C /* Assets.xcassets */,
+				BBE465D41E288B9A00E7F583 /* Assets.xcassets */,
 				BBFB442D1E216AA10002E30C /* Info.plist */,
 				BBFB442A1E216AA10002E30C /* LaunchScreen.storyboard */,
 				BBFB44251E216AA10002E30C /* Reflect.xcdatamodeld */,
@@ -298,7 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBFB442C1E216AA10002E30C /* LaunchScreen.storyboard in Resources */,
-				BBFB44291E216AA10002E30C /* Assets.xcassets in Resources */,
+				BBE465D51E288B9A00E7F583 /* Assets.xcassets in Resources */,
 				BBFB44241E216AA10002E30C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
