@@ -169,14 +169,14 @@
 			isa = PBXGroup;
 			children = (
 				BBFB441E1E216AA10002E30C /* AppDelegate.swift */,
+				BBE465D41E288B9A00E7F583 /* Assets.xcassets */,
 				BBE465D61E28B47000E7F583 /* GoogleService-Info.plist */,
+				BBFB442D1E216AA10002E30C /* Info.plist */,
 				BBA4C26A1E28C804006BFEAE /* KeychainWrapper.h */,
 				BBA4C26B1E28C804006BFEAE /* KeychainWrapper.m */,
-				BBE465D41E288B9A00E7F583 /* Assets.xcassets */,
-				BBFB442D1E216AA10002E30C /* Info.plist */,
 				BBFB442A1E216AA10002E30C /* LaunchScreen.storyboard */,
-				BBFB44251E216AA10002E30C /* Reflect.xcdatamodeld */,
 				BBA4C2691E28C803006BFEAE /* Reflect-Bridging-Header.h */,
+				BBFB44251E216AA10002E30C /* Reflect.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

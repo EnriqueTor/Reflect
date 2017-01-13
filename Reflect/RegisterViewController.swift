@@ -161,7 +161,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         errorLabel.widthAnchor.constraint(equalTo: nameText.widthAnchor).isActive = true
         errorLabel.textColor = UIColor.red
         errorLabel.font = Constants.Font.small
-        errorLabel.numberOfLines = 1
+        errorLabel.numberOfLines = 2
+        errorLabel.textAlignment = .center
         
         //MARK: mailIcon
         mailIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -251,16 +252,18 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
             }
             FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
                 if let error = error {
-                    print(error.localizedDescription)
+                    self.errorLabel.text = error.localizedDescription    
                 }
                 self.store.user.id = (user?.uid)!
                 self.store.user.name = name
                 self.store.user.email = email
                 
-                addDataToKeychain(id: (user?.uid)!, name: name, email: email)
+                self.addDataToKeychain(id: (user?.uid)!, name: name, email: email)
                 
-                self.database.child(self.store.user.id).child("name").setValue(self.store.user.name)
-                self.database.child(self.store.user.id).child("email").setValue(self.store.user.email)
+                self.database.child("user").child(self.store.user.id).child("name").setValue(self.store.user.name)
+                self.database.child("user").child(self.store.user.id).child("email").setValue(self.store.user.email)
+                
+                self.registerPushed()
                 
             }
         }
@@ -276,6 +279,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         MyKeychainWrapper.writeToKeychain()
         UserDefaults.standard.synchronize()
         
+    }
+    
+    func registerPushed() {
+        NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
     }
     
 }
