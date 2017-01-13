@@ -13,6 +13,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     
     var habits: [Habit] = []
+    let store = DataStore.sharedInstance
     
     var one = Habit(id: "1", name: "Run", startingTime: "", finishDate: "", archive: "3")
     
@@ -24,13 +25,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var five = Habit(id: "4", name: "Do the dishes", startingTime: "", finishDate: "", archive: "4")
     
-    let reflectView = UIView()
-    let circle1 = UIImageView()
-    let circle2 = UIImageView()
-    let circle3 = UIImageView()
-    let circle4 = UIImageView()
-    let circle5 = UIImageView()
-    
+       
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -44,35 +39,8 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tableView.delegate = self
         tableView.dataSource = self
+        
         tableView.reloadData()
-        
-        //MARK: reflectView
-        reflectView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(reflectView)
-        reflectView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        reflectView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        reflectView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        reflectView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        
-        //MARK: circle1
-        
-        
-        
-        //MARK: circle2
-        
-        
-        
-        //MARK: circle3
-        
-        
-        
-        //MARK: circle4
-        
-        
-        
-        //MARK: circle5
-        
-        
         
         
         
@@ -97,17 +65,18 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "habitCell", for: indexPath) as! HabitTableViewCell
         
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+
         cell.habitLabel.text = habits[indexPath.row].name
         
-        var imageNumber = "circle\(habits[indexPath.row].archive)"
+        let imageNumber = "circle\(habits[indexPath.row].archive)"
         
-        cell.reflectImage.image = UIImage(named: imageNumber)
+        cell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
+        
         
         cell.cellView.layer.cornerRadius = 3
         
         return cell
     }
-    
-    
     
 }

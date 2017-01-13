@@ -41,4 +41,14 @@ struct Constants {
         
     }
     
+    struct Images {
+        
+        static let circle1 = UIImage(named: "circle1")
+        static let circle2 = UIImage(named: "circle2")
+        static let circle3 = UIImage(named: "circle3")
+        static let circle4 = UIImage(named: "circle4")
+        static let circle5 = UIImage(named: "circle5")
+        
+    }
+    
 }

@@ -16,10 +16,20 @@ class DataStore{
 
     var user = User(id: "", name: "", email: "")
 
+    var rankHabit: String = RankHabit.select.rawValue
+    
+    
 
 
 
 
 
 
+}
+
+enum RankHabit: String {
+    
+    case select = "selected"
+    case pick = "pick"
+    
 }
