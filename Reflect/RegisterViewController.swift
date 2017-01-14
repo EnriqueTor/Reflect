@@ -254,7 +254,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
                 if let error = error {
                     self.errorLabel.text = error.localizedDescription    
                 }
-                self.store.user.id = (user?.uid)!
+                self.store.user.id = (FIRAuth.auth()?.currentUser?.uid)!
                 self.store.user.name = name
                 self.store.user.email = email
                 

@@ -15,10 +15,10 @@ class DataStore{
     static let sharedInstance = DataStore()
 
     var user = User(id: "", name: "", email: "")
-
+    var habit = Habit(id: "", name: "", startDate: "", archive: "")
     var rankHabit: String = RankHabit.select.rawValue
     
-    
+    var userHabits: [Habit] = []
 
 
 

@@ -124,6 +124,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         emailText.autocapitalizationType = .none
         emailText.setLeftPaddingPoints(50)
         emailText.setRightPaddingPoints(10)
+        emailText.autocorrectionType = .no
         emailText.delegate = self
         emailText.addTarget(self, action: #selector(LoginViewController.textFieldDidChange(sender:)), for: UIControlEvents.editingChanged)
         
@@ -137,7 +138,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         errorLabel.font = Constants.Font.small
         errorLabel.numberOfLines = 2
         errorLabel.textAlignment = .center
-
+        
         //MARK: mailIcon
         mailIcon.translatesAutoresizingMaskIntoConstraints = false
         loginView.addSubview(mailIcon)
@@ -154,7 +155,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         
         //MARK: tapDismiss
         tapDismiss.delegate = self
-
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -193,23 +194,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     
     func loginPushed() {
         
-        if emailText.text != "" && passText.text != "" {
-            loginButton.isEnabled = true
-            let email = emailText.text
-            let pass = passText.text
+        guard let email = emailText.text, let pass = passText.text else { return }
+        
+        if email != "" && pass != "" {
             
-            FIRAuth.auth()?.signIn(withEmail: email!, password: pass!) { (user, error) in
+            FIRAuth.auth()?.signIn(withEmail: email, password: pass) { (user, error) in
+                
                 if let error = error {
                     self.errorLabel.text = error.localizedDescription
                 }
-                self.store.user.id = (user?.uid)!
-                //TODO: we need to bring the store.user.name
-                self.store.user.email = email!
-                
-                self.addDataToKeychain(email: email!, pass: pass!)
-                
-                NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
-                
+                else {
+                    self.store.user.id = (FIRAuth.auth()?.currentUser?.uid)!
+                    self.store.user.email = email
+                    
+                    self.addDataToKeychain(id: self.store.user.id, email: self.store.user.email, pass: pass)
+                    
+                    NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
+                }
             }
         }
     }
@@ -221,17 +222,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         return true
     }
     
-    func addDataToKeychain(email: String, pass: String) {
+    func addDataToKeychain(id: String, email: String, pass: String) {
         
-        // TODO: UserDefaults.standard.setValue(id, forKey: "id")
-        // TODO: UserDefaults.standard.setValue(name, forKey: "name")
         UserDefaults.standard.setValue(email, forKey: "email")
+        UserDefaults.standard.setValue(id, forKey: "id")
         
         myKeychainWrapper.mySetObject(pass, forKey:kSecValueData)
         myKeychainWrapper.writeToKeychain()
         UserDefaults.standard.synchronize()
         
     }
-
+    
     
 }

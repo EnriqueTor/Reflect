@@ -27,15 +27,15 @@ class HabitTableViewCell: UITableViewCell {
     @IBAction func rankPushed(_ sender: UIButton) {
         
         print("jksfhasfhkhsdhk")
-//        //MARK: reflectView
-//        reflectView.translatesAutoresizingMaskIntoConstraints = false
-//        cellMainView.addSubview(reflectView)
-//        reflectView.centerXAnchor.constraint(equalTo: cellMainView.centerXAnchor).isActive = true
-//        reflectView.bottomAnchor.constraint(equalTo: cellMainView.bottomAnchor).isActive = true
-//        reflectView.widthAnchor.constraint(equalTo: cellMainView.widthAnchor).isActive = true
-//        reflectView.heightAnchor.constraint(equalToConstant: 78).isActive = true
-//        reflectView.backgroundColor = UIColor.white
-//        
+        //        //MARK: reflectView
+        //        reflectView.translatesAutoresizingMaskIntoConstraints = false
+        //        cellMainView.addSubview(reflectView)
+        //        reflectView.centerXAnchor.constraint(equalTo: cellMainView.centerXAnchor).isActive = true
+        //        reflectView.bottomAnchor.constraint(equalTo: cellMainView.bottomAnchor).isActive = true
+        //        reflectView.widthAnchor.constraint(equalTo: cellMainView.widthAnchor).isActive = true
+        //        reflectView.heightAnchor.constraint(equalToConstant: 78).isActive = true
+        //        reflectView.backgroundColor = UIColor.white
+        //
         
         //MARK: circle3
         circle3.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +68,7 @@ class HabitTableViewCell: UITableViewCell {
         circle1.centerYAnchor.constraint(equalTo: reflectView.centerYAnchor).isActive = true
         circle1.setImage(Constants.Images.circle1, for: .normal)
         circle1.addTarget(self, action:  #selector(rankSelected1), for: .touchUpInside)
-        circle1.alpha = 0
+                circle1.alpha = 0
         
         //MARK: circle4
         circle4.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +79,7 @@ class HabitTableViewCell: UITableViewCell {
         circle4.centerYAnchor.constraint(equalTo: reflectView.centerYAnchor).isActive = true
         circle4.setImage(Constants.Images.circle4, for: .normal)
         circle4.addTarget(self, action:  #selector(rankSelected4), for: .touchUpInside)
-        circle4.alpha = 0
+                circle4.alpha = 0
         
         //MARK: circle5
         circle5.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +91,7 @@ class HabitTableViewCell: UITableViewCell {
         circle5.setImage(Constants.Images.circle5, for: .normal)
         circle5.addTarget(self, action:  #selector(rankSelected5), for: .touchUpInside)
         circle5.alpha = 0
-
+        
         UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.2, options: .curveEaseOut, animations: {            self.reflectView.alpha = 1
             self.circle1.alpha = 1
             self.circle2.alpha = 1
@@ -99,14 +99,14 @@ class HabitTableViewCell: UITableViewCell {
             self.circle4.alpha = 1
             self.circle5.alpha = 1
         })
-
+        
     }
     
     func rankSelected1() {
         
         reflectButton.setImage(UIImage(named: "circle1"), for: .normal)
         hideRank()
-
+        
     }
     
     func rankSelected2() {
@@ -133,16 +133,17 @@ class HabitTableViewCell: UITableViewCell {
         hideRank()
     }
     
-        func hideRank() {
-            
-            UIView.animate(withDuration: 0.30, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.2, options: .curveLinear, animations: {            self.reflectView.alpha = 0
-                self.circle1.alpha = 0
-                self.circle2.alpha = 0
-                self.circle3.alpha = 0
-                self.circle4.alpha = 0
-                self.circle5.alpha = 0
-            })
-        }
+    func hideRank() {
+        
+        UIView.animate(withDuration: 0.30, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.2, options: .curveLinear, animations: {
+            self.reflectView.alpha = 0
+            self.circle1.alpha = 0
+            self.circle2.alpha = 0
+            self.circle3.alpha = 0
+            self.circle4.alpha = 0
+            self.circle5.alpha = 0
+        })
+    }
     
     
 }

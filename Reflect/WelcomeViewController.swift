@@ -26,6 +26,7 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         login()
+        print("============================> \(store.user.id)")
     }
     
     //MARK: - Functions
@@ -109,26 +110,26 @@ class WelcomeViewController: UIViewController {
     func login() {
         
         if UserDefaults.standard.value(forKey: "email") as? String == nil {
+            return
         }
         else {
             
-            //        if UserDefaults.standard.value(forKey: "email") as? String != "" {
-            
-//            let name = UserDefaults.standard.value(forKey: "name") as? String
             let email = UserDefaults.standard.value(forKey: "email") as? String
             let pass = myKeychainWrapper.myObject(forKey: "v_Data") as? String
             
             FIRAuth.auth()?.signIn(withEmail: email!, password: pass!) { (user, error) in
-                if let error = error {
-                    self.errorLabel.text = error.localizedDescription
+            
+                if error != nil {
+                    self.errorLabel.text = error?.localizedDescription
                 }
-                self.store.user.id = (user?.uid)!
-//                self.store.user.name = name!
+                else {
+                self.store.user.id = (FIRAuth.auth()?.currentUser?.uid)!
                 self.store.user.email = email!
                 
                 NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
-            }
             
+                }
+            }
         }
     }
     

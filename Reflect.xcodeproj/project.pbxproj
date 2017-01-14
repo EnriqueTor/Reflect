@@ -14,6 +14,7 @@
 		BB5283911E25B4B400047A07 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283901E25B4B400047A07 /* WelcomeViewController.swift */; };
 		BB5283931E25B4C200047A07 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283921E25B4C200047A07 /* LoginViewController.swift */; };
 		BB5283951E25B4CD00047A07 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283941E25B4CD00047A07 /* RegisterViewController.swift */; };
+		BB797A581E29CC1A00ED28BE /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB797A571E29CC1A00ED28BE /* AddHabitViewController.swift */; };
 		BB7ADDA01E25DD6E0027DDBD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7ADD9F1E25DD6E0027DDBD /* Extensions.swift */; };
 		BB7ADDA31E25E5250027DDBD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7ADDA21E25E5250027DDBD /* Constants.swift */; };
 		BB87919C1E26A78600A8729A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87919B1E26A78600A8729A /* MainViewController.swift */; };
@@ -62,6 +63,7 @@
 		BB5283901E25B4B400047A07 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		BB5283921E25B4C200047A07 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BB5283941E25B4CD00047A07 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		BB797A571E29CC1A00ED28BE /* AddHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		BB7ADD9F1E25DD6E0027DDBD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BB7ADDA21E25E5250027DDBD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BB87919B1E26A78600A8729A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		BB7ADD9C1E25DCA60027DDBD /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BB797A571E29CC1A00ED28BE /* AddHabitViewController.swift */,
 				BB87919D1E26AD0A00A8729A /* AppController.swift */,
 				BB5283921E25B4C200047A07 /* LoginViewController.swift */,
 				BB87919B1E26A78600A8729A /* MainViewController.swift */,
@@ -543,6 +546,7 @@
 				BB5283931E25B4C200047A07 /* LoginViewController.swift in Sources */,
 				BB0675981E285D3500B4EF9A /* HabitCollectionViewCell.swift in Sources */,
 				BBFB44271E216AA10002E30C /* Reflect.xcdatamodeld in Sources */,
+				BB797A581E29CC1A00ED28BE /* AddHabitViewController.swift in Sources */,
 				BB06759A1E28847800B4EF9A /* Habit.swift in Sources */,
 				BB87919E1E26AD0A00A8729A /* AppController.swift in Sources */,
 				BB0675961E28585200B4EF9A /* Main2ViewController.swift in Sources */,
