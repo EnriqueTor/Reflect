@@ -36,19 +36,19 @@ class WelcomeViewController: UIViewController {
         view.backgroundColor = Constants.Color.darkGray
         
         //reflectIcon
-        reflectIcon.image = UIImage(named: "circleLogo")
-        reflectIcon.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(reflectIcon)
-        reflectIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        reflectIcon.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150).isActive = true
-        reflectIcon.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        reflectIcon.widthAnchor.constraint(equalToConstant: 150).isActive = true
+//        reflectIcon.image = UIImage(named: "circleLogo")
+//        reflectIcon.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(reflectIcon)
+//        reflectIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        reflectIcon.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150).isActive = true
+//        reflectIcon.heightAnchor.constraint(equalToConstant: 33).isActive = true
+//        reflectIcon.widthAnchor.constraint(equalToConstant: 165).isActive = true
         
         //titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: reflectIcon.bottomAnchor, constant: 5).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -150).isActive = true
         titleLabel.text = "Reflect"
         titleLabel.font = Constants.Font.iconTitle
         titleLabel.textColor = UIColor.white

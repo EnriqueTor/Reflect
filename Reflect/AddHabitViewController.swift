@@ -98,9 +98,10 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
         habitText.heightAnchor.constraint(equalToConstant: 44).isActive = true
         habitText.layer.borderWidth = 0
         habitText.background = UIImage(named: "input-outline")
-        habitText.placeholder = "New Habit"
+        habitText.placeholder = "Habit"
         habitText.font = Constants.Font.button
         habitText.textColor = Constants.Color.orangeCool
+        habitText.autocapitalizationType = .words
         habitText.autocapitalizationType = .none
         habitText.setLeftPaddingPoints(10)
         habitText.setRightPaddingPoints(10)
@@ -212,7 +213,7 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
         let dataHabit = database.child("habit").child(store.user.id).childByAutoId()
         store.habit.id = dataHabit.key
         
-        let newHabit = Habit(id: store.habit.id, name: name, startDate: "", archive: "no")
+        let newHabit = Habit(id: store.habit.id, name: name, startDate: "", rank: "0", archive: "no")
         
         database.child("habit").child(store.user.id).child(store.habit.id).setValue(newHabit.serialize(), withCompletionBlock: { error, dataRef in
             

@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -17,12 +17,11 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let database = FIRDatabase.database().reference()
     
     var habits: [Habit] = []
-       
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         configDatabase()
-
         
     }
     
@@ -30,16 +29,15 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewWillAppear(true)
         setupView()
         configDatabase()
-
+        
     }
     
     func setupView() {
         
         tableView.delegate = self
         tableView.dataSource = self
-
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return habits.count
     }
@@ -49,10 +47,10 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "habitCell", for: indexPath) as! HabitTableViewCell
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-
+        
         cell.habitLabel.text = habits[indexPath.row].name
         
-        let imageNumber = "circle\(habits[indexPath.row].archive)"
+        let imageNumber = "circle\(habits[indexPath.row].rank)"
         
         cell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
         
@@ -69,24 +67,33 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
+        
+        
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             
             let alertController = UIAlertController(title: "Delete",  message: "Are you sure you want to delete this task?.", preferredStyle: .alert)
             
             let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: { action -> Void in
-  
+                
+                let habitID = self.habits[indexPath.row].id
+                
                 self.store.userHabits.remove(at: indexPath.row)
+
                 self.habits.remove(at: indexPath.row)
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
+
+                self.database.child("habit").child(self.store.user.id).child(habitID).removeValue()
                 
-                self.database.child("habit").child(self.store.user.id).child(self.habits[indexPath.row].id).removeValue()
+                
                 
                 self.tableView.reloadData()
+
+                
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-           
+                
             })
             
             
@@ -99,32 +106,40 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         return [delete]
     }
-
+    
     func configDatabase() {
         
         let habitData = database.child("habit").child(store.user.id)
+        print("==============================================")
+        print(habits)
+        print(store.user)
+        print(store.habit)
+        print(store.userHabits)
+        
+        habits = []
+        store.userHabits = []
+        
         
         habitData.observe(.value, with: { snapshot in
             
-            print("====> this is the snapshot \(snapshot)")
             var newHabits: [Habit] = []
-            
-            print(snapshot.children)
-            
+
             for item in snapshot.children {
                 
                 let newHabit = Habit(snapshot: (item as? FIRDataSnapshot)!)
                 
-                newHabits.append(newHabit)
+                newHabits.insert(newHabit, at: 0)
             }
             
-            self.store.userHabits = newHabits
-            self.habits = self.store.userHabits
+            self.habits = newHabits
+            
+            self.store.userHabits = self.habits
+
             self.tableView.reloadData()
             
         })
     }
     
     
-
+    
 }

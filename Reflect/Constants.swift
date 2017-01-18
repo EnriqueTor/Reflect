@@ -23,6 +23,7 @@ struct Constants {
         static let reflect3 = UIColor(red: 249/255, green: 210/255, blue: 144/255, alpha: 1)
         static let reflect4 = UIColor(red: 247/255, green: 189/255, blue: 90/255, alpha: 1)
         static let reflect5 = UIColor(red: 245/255, green: 166/255, blue: 35/255, alpha: 1)
+        
     }
     
     struct Font {
@@ -32,7 +33,7 @@ struct Constants {
         static let button = UIFont(name: "AvenirNext-Regular", size: 16)
         static let small = UIFont(name: "AvenirNext-Regular", size: 10)
         static let plus = UIFont(name: "AvenirNext-Regular", size: 30)
-        static let iconTitle = UIFont(name: "AvenirNext-DemiBold", size: 45)
+        static let iconTitle = UIFont(name: "AvenirNext-DemiBold", size: 50)
     }
     
     struct Sizes {
