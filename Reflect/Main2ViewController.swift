@@ -30,14 +30,14 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setupView()
-       
+        
     }
     
     func setupView() {
         
         tableView.delegate = self
         tableView.dataSource = self
-
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,17 +81,17 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 let habitID = self.habits[indexPath.row].id
                 
                 self.store.userHabits.remove(at: indexPath.row)
-
+                
                 self.habits.remove(at: indexPath.row)
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
-
+                
                 self.database.child("habit").child(self.store.user.id).child(habitID).removeValue()
                 
                 
                 
                 self.tableView.reloadData()
-
+                
                 
             })
             
@@ -112,7 +112,8 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func configDatabase() {
         
-        // get habit list
+        // update habit list
+        
         let habitData = database.child("habit").child(store.user.id)
         habits = []
         store.userHabits = []
@@ -120,7 +121,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         habitData.observe(.value, with: { snapshot in
             
             var newHabits: [Habit] = []
-
+            
             for item in snapshot.children {
                 
                 let newHabit = Habit(snapshot: (item as? FIRDataSnapshot)!)
@@ -134,85 +135,35 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             self.tableView.reloadData()
             
-            //TODO: Put an observer to check if the date already exist
+            let dailyData = self.database.child("daily")
             
-            let dailyData = self.database.child("daily").child(self.currentDate).key
-            
-            
-            if dailyData == "" {
-                    print(dailyData)
+            // update daily list
+
+            dailyData.observe(.value, with: { (snapshot) in
+                
+                let isDate = snapshot.value as? [String:Any]
+                
+                if isDate == nil {
+                    self.updateDailyDatabase()
                     print("I do not exits")
                     
                 }
                 else {
-                    print(dailyData)
                     print("I'm alive!!")
                 }
-
                 
-            
-            
-            
-                
-                
-    
-            
-//            
-//            dailyData.observe(.value, with: { (snapshot) in
-//                
-//                
-//                for item in snapshot.children {
-//
-//                   print(item)
-//                    
-//                    if item[currentDate] as? [String:Any] == nil {
-//                        
-//                        print("I do not exits")
-//                        
-//                    }
-//                    else {
-//                        
-//                        print("I'm alive!!")
-//                    }
-////                let date = Daily(snapshot: (item as? FIRDataSnapshot)!)
-            
-//                if date[currentDate] == nil {
-//                    
-//                    self.updateDailyDatabase()
-//                }
-//                else {
-//                    
-//                    print("the day already exist")
-//                }
-//                    
-                    
-//                }
-            
-                
-//            })
-            
+            })
             
         })
-        
-        // create day on daily list 
-        
-       
-        
+    
     }
     
     func updateDailyDatabase() {
         
-        print("HELOOOOOOOOOOOOOOO \(store.userHabits)")
-        
         for habit in store.userHabits {
-            print("=======================> I'm rolling")
-
+            
             database.child("daily").child(currentDate).child(store.user.id).child(habit.id).child("rank").setValue("1")
-            
-            
-            
-            
-            print("=======================> I'm rolling")
+    
         }
     }
     
