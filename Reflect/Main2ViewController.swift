@@ -11,18 +11,26 @@ import Firebase
 
 class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    //MAK: - Outlets
+    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var footView: UIView!
+    
+    //MARK: - Variables
     
     let store = DataStore.sharedInstance
     let database = FIRDatabase.database().reference()
     var currentDate: String = ""
-    
     var habits: [Habit] = []
+    
+    //MARK: - Loads
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         currentDate = getDate()
+        store.currentDate = getDate()
         configDatabase()
         
     }
@@ -33,10 +41,24 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
+    //MARK: - Actions
+    
+    @IBAction func dismissVC(_ sender: UIButton) {
+        UserDefaults.standard.setValue(nil, forKey: "email")
+        NotificationCenter.default.post(name: NSNotification.Name.openWelcomeVC, object: nil)
+        
+    }
+    
+    //MARK: - Methods
+    
     func setupView() {
         
         tableView.delegate = self
         tableView.dataSource = self
+        footView.backgroundColor = Constants.Color.darkGray
+        dateLabel.text = "today"
+        dateLabel.textColor = UIColor.white
+        dateLabel.font = Constants.Font.button
         
     }
     
@@ -49,28 +71,36 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "habitCell", for: indexPath) as! HabitTableViewCell
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        
-        cell.habitLabel.text = habits[indexPath.row].name
-        
-        //TODO: Fix the image.
-        let imageNumber = "circle\(habits[indexPath.row].archive)"
-        
-        cell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
-        
         cell.cellView.layer.cornerRadius = 3
+
+        let habit = habits[indexPath.row]
+        
+        cell.habitLabel.text = habit.name
+        
+        let dailyData = self.database.child("daily").child(currentDate).child(store.user.id).child(habit.id)
+        
+        // update daily list
+        
+        dailyData.observe(.value, with: { (snapshot) in
+            
+            let dailyRoot = snapshot.value as? [String:Any]
+            
+            let habitRank = dailyRoot?["rank"] as? String
+            
+            let imageNumber = "circle\(habitRank!)"
+            
+            cell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
+            
+        })
+        
+        cell.habits = habits
         
         return cell
-    }
-    
-    @IBAction func dismissVC(_ sender: UIButton) {
-        UserDefaults.standard.setValue(nil, forKey: "email")
-        NotificationCenter.default.post(name: NSNotification.Name.openWelcomeVC, object: nil)
+        
         
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             
@@ -88,8 +118,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 
                 self.database.child("habit").child(self.store.user.id).child(habitID).removeValue()
                 
-                
-                
                 self.tableView.reloadData()
                 
                 
@@ -98,7 +126,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
                 
             })
-            
             
             alertController.addAction(deleteAction)
             alertController.addAction(cancelAction)
@@ -109,6 +136,16 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         return [delete]
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//        let habit = habits[indexPath.row]
+//        
+//        store.habitSelected = habit.id
+//        
+//        print("SOMEONE TOUCHED ME!")
+//        print(store.habitSelected)
+//    }
     
     func configDatabase() {
         
@@ -167,9 +204,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    
-    
-    
     func getDate() -> String {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
@@ -178,4 +212,10 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
+    func changePage() {
+        
+        
+        
+        
+    }
 }

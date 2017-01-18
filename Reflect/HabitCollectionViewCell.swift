@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HabitTableViewCell: UITableViewCell {
     
@@ -22,7 +23,8 @@ class HabitTableViewCell: UITableViewCell {
     let circle4 = UIButton()
     let circle5 = UIButton()
     let store = DataStore.sharedInstance
-    
+    let database = FIRDatabase.database().reference()
+    var habits: [Habit] = []
     
     @IBAction func rankPushed(_ sender: UIButton) {
         
@@ -105,6 +107,13 @@ class HabitTableViewCell: UITableViewCell {
     func rankSelected1() {
         
         reflectButton.setImage(UIImage(named: "circle1"), for: .normal)
+        
+        let indexPath :NSIndexPath = (self.superview!.superview as! UITableView).indexPath(for: self)! as NSIndexPath
+        
+        let habitID = habits[indexPath.row].id
+        
+        database.child("daily").child(store.currentDate).child(store.user.id).child(habitID).child("rank").setValue("1")
+        
         hideRank()
         
     }
@@ -112,24 +121,51 @@ class HabitTableViewCell: UITableViewCell {
     func rankSelected2() {
         
         reflectButton.setImage(UIImage(named: "circle2"), for: .normal)
+        
+        let indexPath :NSIndexPath = (self.superview!.superview as! UITableView).indexPath(for: self)! as NSIndexPath
+        
+        let habitID = habits[indexPath.row].id
+        
+        database.child("daily").child(store.currentDate).child(store.user.id).child(habitID).child("rank").setValue("2")
         hideRank()
     }
     
     func rankSelected3() {
         
         reflectButton.setImage(UIImage(named: "circle3"), for: .normal)
+        
+        let indexPath :NSIndexPath = (self.superview!.superview as! UITableView).indexPath(for: self)! as NSIndexPath
+        
+        let habitID = habits[indexPath.row].id
+        
+        database.child("daily").child(store.currentDate).child(store.user.id).child(habitID).child("rank").setValue("3")
+        
         hideRank()
     }
     
     func rankSelected4() {
         
         reflectButton.setImage(UIImage(named: "circle4"), for: .normal)
+        
+        let indexPath :NSIndexPath = (self.superview!.superview as! UITableView).indexPath(for: self)! as NSIndexPath
+        
+        let habitID = habits[indexPath.row].id
+        
+        database.child("daily").child(store.currentDate).child(store.user.id).child(habitID).child("rank").setValue("4")
+        
         hideRank()
     }
     
     func rankSelected5() {
         
         reflectButton.setImage(UIImage(named: "circle5"), for: .normal)
+        
+        let indexPath :NSIndexPath = (self.superview!.superview as! UITableView).indexPath(for: self)! as NSIndexPath
+        
+        let habitID = habits[indexPath.row].id
+        
+        database.child("daily").child(store.currentDate).child(store.user.id).child(habitID).child("rank").setValue("5")
+        
         hideRank()
     }
     

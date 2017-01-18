@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D17a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8uj-dg-YGg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8uj-dg-YGg">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -201,10 +201,26 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="F5h-Vb-4or">
-                                <rect key="frame" x="168" y="625" width="39" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pageControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="72h-g7-cdE">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <subviews>
+                                    <pageControl opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="F5h-Vb-4or">
+                                        <rect key="frame" x="168" y="2" width="39" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </pageControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J12-SP-VIp">
+                                        <rect key="frame" x="166" y="14.5" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="J12-SP-VIp" firstAttribute="centerX" secondItem="72h-g7-cdE" secondAttribute="centerX" id="wLF-MW-fji"/>
+                                    <constraint firstItem="J12-SP-VIp" firstAttribute="centerY" secondItem="72h-g7-cdE" secondAttribute="centerY" id="x10-18-7FA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -215,9 +231,12 @@
                             <constraint firstItem="5de-Ou-En0" firstAttribute="top" secondItem="CfR-NY-aSq" secondAttribute="bottom" id="Ic3-tQ-hrB"/>
                             <constraint firstItem="w5H-rZ-LO8" firstAttribute="leading" secondItem="6dF-BW-OnM" secondAttribute="leading" id="In5-Wf-APF"/>
                             <constraint firstAttribute="trailing" secondItem="q0s-ed-WbL" secondAttribute="trailing" id="M38-fz-Mrk"/>
+                            <constraint firstItem="72h-g7-cdE" firstAttribute="centerX" secondItem="q0s-ed-WbL" secondAttribute="centerX" id="NtC-fz-w3U"/>
                             <constraint firstAttribute="trailing" secondItem="5de-Ou-En0" secondAttribute="trailing" id="PaR-3S-KY0"/>
                             <constraint firstItem="q0s-ed-WbL" firstAttribute="top" secondItem="CfR-NY-aSq" secondAttribute="bottom" id="PuG-iz-dc8"/>
+                            <constraint firstItem="72h-g7-cdE" firstAttribute="top" secondItem="q0s-ed-WbL" secondAttribute="bottom" id="SAp-Yw-vI9"/>
                             <constraint firstItem="CfR-NY-aSq" firstAttribute="width" secondItem="6dF-BW-OnM" secondAttribute="width" id="XU9-PQ-whY"/>
+                            <constraint firstItem="72h-g7-cdE" firstAttribute="width" secondItem="q0s-ed-WbL" secondAttribute="width" id="cxM-3s-BT2"/>
                             <constraint firstItem="q0s-ed-WbL" firstAttribute="width" secondItem="6dF-BW-OnM" secondAttribute="width" id="dEv-Ph-a9A"/>
                             <constraint firstAttribute="leading" secondItem="q0s-ed-WbL" secondAttribute="leading" id="fwB-M4-cPd"/>
                             <constraint firstItem="Ymu-MP-6Jg" firstAttribute="top" secondItem="w5H-rZ-LO8" secondAttribute="bottom" constant="50" id="gbj-xH-a2c"/>
@@ -227,12 +246,15 @@
                             <constraint firstItem="w5H-rZ-LO8" firstAttribute="width" secondItem="6dF-BW-OnM" secondAttribute="width" id="rT1-ec-ZvB"/>
                             <constraint firstItem="CfR-NY-aSq" firstAttribute="top" secondItem="4Dr-aE-n2n" secondAttribute="bottom" id="uiu-sR-pz8"/>
                             <constraint firstItem="5de-Ou-En0" firstAttribute="leading" secondItem="6dF-BW-OnM" secondAttribute="leading" id="x93-pV-EDf"/>
+                            <constraint firstItem="Ymu-MP-6Jg" firstAttribute="top" secondItem="72h-g7-cdE" secondAttribute="bottom" id="ynF-Gh-EJ5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Reflect" id="Yzk-rb-gsi"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="dateLabel" destination="J12-SP-VIp" id="Lff-rT-vjg"/>
+                        <outlet property="footView" destination="72h-g7-cdE" id="TP3-dA-Vwu"/>
                         <outlet property="tableView" destination="q0s-ed-WbL" id="Hfo-vs-Oy8"/>
                     </connections>
                 </viewController>
