@@ -213,7 +213,7 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
         let dataHabit = database.child("habit").child(store.user.id).childByAutoId()
         store.habit.id = dataHabit.key
         
-        let newHabit = Habit(id: store.habit.id, name: name, startDate: "", rank: "0", archive: "no")
+        let newHabit = Habit(id: store.habit.id, name: name, startDate: "", archive: "0")
         
         database.child("habit").child(store.user.id).child(store.habit.id).setValue(newHabit.serialize(), withCompletionBlock: { error, dataRef in
             

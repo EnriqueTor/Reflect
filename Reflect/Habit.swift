@@ -14,15 +14,13 @@ struct Habit {
     var id: String
     var name: String
     var startDate: String
-    var rank: String
     var archive: String
     
-    init(id: String, name: String, startDate: String, rank: String, archive: String) {
+    init(id: String, name: String, startDate: String, archive: String) {
         
         self.id = id
         self.name = name
         self.startDate = startDate
-        self.rank = rank
         self.archive = archive
         
     }
@@ -34,13 +32,12 @@ struct Habit {
         id = snapshotValue["id"] as! String
         name = snapshotValue["name"] as! String
         startDate = snapshotValue["startDate"] as! String
-        rank = snapshotValue["rank"] as! String
         archive = snapshotValue["archive"] as! String
         
     }
 
     func serialize() -> [String:Any] {
-        return  ["id" : id, "name": name, "startDate": startDate, "rank": rank, "archive": archive]
+        return  ["id" : id, "name": name, "startDate": startDate, "archive": archive]
         
     }
 

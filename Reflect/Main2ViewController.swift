@@ -9,18 +9,20 @@
 import UIKit
 import Firebase
 
-class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
     let store = DataStore.sharedInstance
     let database = FIRDatabase.database().reference()
+    var currentDate: String = ""
     
     var habits: [Habit] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        currentDate = getDate()
         configDatabase()
         
     }
@@ -28,14 +30,14 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setupView()
-        configDatabase()
-        
+       
     }
     
     func setupView() {
         
         tableView.delegate = self
         tableView.dataSource = self
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,7 +52,8 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cell.habitLabel.text = habits[indexPath.row].name
         
-        let imageNumber = "circle\(habits[indexPath.row].rank)"
+        //TODO: Fix the image.
+        let imageNumber = "circle\(habits[indexPath.row].archive)"
         
         cell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
         
@@ -109,16 +112,10 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func configDatabase() {
         
+        // get habit list
         let habitData = database.child("habit").child(store.user.id)
-        print("==============================================")
-        print(habits)
-        print(store.user)
-        print(store.habit)
-        print(store.userHabits)
-        
         habits = []
         store.userHabits = []
-        
         
         habitData.observe(.value, with: { snapshot in
             
@@ -134,12 +131,100 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             self.habits = newHabits
             
             self.store.userHabits = self.habits
-
+            
             self.tableView.reloadData()
             
+            //TODO: Put an observer to check if the date already exist
+            
+            let dailyData = self.database.child("daily").child(self.currentDate).key
+            
+            
+            if dailyData == "" {
+                    print(dailyData)
+                    print("I do not exits")
+                    
+                }
+                else {
+                    print(dailyData)
+                    print("I'm alive!!")
+                }
+
+                
+            
+            
+            
+                
+                
+    
+            
+//            
+//            dailyData.observe(.value, with: { (snapshot) in
+//                
+//                
+//                for item in snapshot.children {
+//
+//                   print(item)
+//                    
+//                    if item[currentDate] as? [String:Any] == nil {
+//                        
+//                        print("I do not exits")
+//                        
+//                    }
+//                    else {
+//                        
+//                        print("I'm alive!!")
+//                    }
+////                let date = Daily(snapshot: (item as? FIRDataSnapshot)!)
+            
+//                if date[currentDate] == nil {
+//                    
+//                    self.updateDailyDatabase()
+//                }
+//                else {
+//                    
+//                    print("the day already exist")
+//                }
+//                    
+                    
+//                }
+            
+                
+//            })
+            
+            
         })
+        
+        // create day on daily list 
+        
+       
+        
     }
     
+    func updateDailyDatabase() {
+        
+        print("HELOOOOOOOOOOOOOOO \(store.userHabits)")
+        
+        for habit in store.userHabits {
+            print("=======================> I'm rolling")
+
+            database.child("daily").child(currentDate).child(store.user.id).child(habit.id).child("rank").setValue("1")
+            
+            
+            
+            
+            print("=======================> I'm rolling")
+        }
+    }
+    
+    
+    
+    
+    func getDate() -> String {
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: currentDate).uppercased()
+    }
     
     
 }
