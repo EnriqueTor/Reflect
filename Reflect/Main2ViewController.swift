@@ -9,13 +9,15 @@
 import UIKit
 import Firebase
 
-class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     //MAK: - Outlets
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var footView: UIView!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     //MARK: - Variables
     
@@ -23,15 +25,20 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let database = FIRDatabase.database().reference()
     var currentDate: String = ""
     var habits: [Habit] = []
+    var scrollWidth: CGFloat = 0.00
+    var scrollHeight: CGFloat = 0.00
     
     //MARK: - Loads
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollWidth = scrollView.frame.width
+        scrollHeight = scrollView.frame.height
         setupView()
         currentDate = getDate()
         store.currentDate = getDate()
         configDatabase()
+        
         
     }
     
@@ -59,6 +66,19 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         dateLabel.text = "today"
         dateLabel.textColor = UIColor.white
         dateLabel.font = Constants.Font.button
+        
+        scrollView.contentSize = CGSize(width: (scrollWidth * 3), height: scrollHeight)
+        scrollView?.delegate = self;
+        scrollView?.isPagingEnabled = true
+        
+        for i in 0...2 {
+        
+        if i == 1 {
+            
+            tableView.isHidden = false
+            
+            }
+        }
         
     }
     
@@ -133,19 +153,8 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             self.present(alertController, animated: true, completion: nil)
         }
         
-        
         return [delete]
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//        let habit = habits[indexPath.row]
-//        
-//        store.habitSelected = habit.id
-//        
-//        print("SOMEONE TOUCHED ME!")
-//        print(store.habitSelected)
-//    }
     
     func configDatabase() {
         
@@ -212,10 +221,22 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
-    func changePage() {
+    @IBAction func changePage() {
         
-        
-        
-        
+        scrollView!.scrollRectToVisible(CGRect( x: scrollWidth * CGFloat ((pageControl?.currentPage)!), y: 0, width: scrollWidth, height: scrollHeight), animated: true)
+    
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        setIndiactorForCurrentPage()
+    }
+    
+    func setIndiactorForCurrentPage()  {
+        let page = (scrollView?.contentOffset.x)!/scrollWidth
+        pageControl?.currentPage = Int(page)
+    }
+
+        
+        
+    
 }
