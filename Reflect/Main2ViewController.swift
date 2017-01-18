@@ -18,6 +18,8 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var footView: UIView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var yesterdayView: UIView!
+    @IBOutlet weak var calendarView: UIView!
     
     //MARK: - Variables
     
@@ -45,7 +47,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setupView()
-        
     }
     
     //MARK: - Actions
@@ -71,14 +72,22 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         scrollView?.delegate = self;
         scrollView?.isPagingEnabled = true
         
-        for i in 0...2 {
+        if pageControl.currentPage == 0 {
+            
+            dateLabel.text = "yesterday"
+            
+        } else if pageControl.currentPage == 1 {
+            
+            dateLabel.text = "today"
         
-        if i == 1 {
+        } else if pageControl.currentPage == 2 {
             
-            tableView.isHidden = false
+            dateLabel.text = "calendar"
             
-            }
         }
+        
+        
+        
         
     }
     
@@ -221,10 +230,8 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
-    @IBAction func changePage() {
-        
+    @IBAction func changePage(){
         scrollView!.scrollRectToVisible(CGRect( x: scrollWidth * CGFloat ((pageControl?.currentPage)!), y: 0, width: scrollWidth, height: scrollHeight), animated: true)
-    
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -234,9 +241,21 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func setIndiactorForCurrentPage()  {
         let page = (scrollView?.contentOffset.x)!/scrollWidth
         pageControl?.currentPage = Int(page)
-    }
+        
+        if page == 0 {
+            
+            dateLabel.text = "yesterday"
+            
+        } else if page == 1 {
+            
+            dateLabel.text = "today"
+            
+        } else if page == 2 {
+            
+            dateLabel.text = "calendar"
+            
+        }
 
-        
-        
+    }
     
 }

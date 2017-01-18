@@ -125,10 +125,6 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" directionalLockEnabled="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5de-Ou-En0">
                                 <rect key="frame" x="0.0" y="60" width="375" height="557"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w5H-rZ-LO8">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="557"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q0s-ed-WbL">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="557"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -209,7 +205,7 @@
                                         <rect key="frame" x="168" y="2" width="39" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
-                                            <action selector="changePage" destination="8WV-Nl-hEy" eventType="valueChanged" id="8hf-2b-IN3"/>
+                                            <action selector="changePage" destination="8WV-Nl-hEy" eventType="valueChanged" id="zeO-QU-1Jn"/>
                                         </connections>
                                     </pageControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J12-SP-VIp">
@@ -231,16 +227,11 @@
                             <constraint firstItem="CfR-NY-aSq" firstAttribute="leading" secondItem="6dF-BW-OnM" secondAttribute="leading" id="0Z7-9k-Hg2"/>
                             <constraint firstItem="Ymu-MP-6Jg" firstAttribute="top" secondItem="5de-Ou-En0" secondAttribute="bottom" constant="50" id="3Ol-zD-ySV"/>
                             <constraint firstAttribute="trailing" secondItem="CfR-NY-aSq" secondAttribute="trailing" id="DDA-8x-Yw8"/>
-                            <constraint firstItem="w5H-rZ-LO8" firstAttribute="top" secondItem="CfR-NY-aSq" secondAttribute="bottom" id="DsL-Hs-bOV"/>
                             <constraint firstItem="5de-Ou-En0" firstAttribute="top" secondItem="CfR-NY-aSq" secondAttribute="bottom" id="Ic3-tQ-hrB"/>
-                            <constraint firstItem="w5H-rZ-LO8" firstAttribute="leading" secondItem="6dF-BW-OnM" secondAttribute="leading" id="In5-Wf-APF"/>
                             <constraint firstAttribute="trailing" secondItem="5de-Ou-En0" secondAttribute="trailing" id="PaR-3S-KY0"/>
                             <constraint firstItem="CfR-NY-aSq" firstAttribute="width" secondItem="6dF-BW-OnM" secondAttribute="width" id="XU9-PQ-whY"/>
-                            <constraint firstItem="Ymu-MP-6Jg" firstAttribute="top" secondItem="w5H-rZ-LO8" secondAttribute="bottom" constant="50" id="gbj-xH-a2c"/>
-                            <constraint firstAttribute="trailing" secondItem="w5H-rZ-LO8" secondAttribute="trailing" id="gxZ-ng-03W"/>
                             <constraint firstItem="5de-Ou-En0" firstAttribute="width" secondItem="6dF-BW-OnM" secondAttribute="width" id="izr-t0-NBi"/>
                             <constraint firstItem="72h-g7-cdE" firstAttribute="width" secondItem="6dF-BW-OnM" secondAttribute="width" id="kuU-Fu-cGY"/>
-                            <constraint firstItem="w5H-rZ-LO8" firstAttribute="width" secondItem="6dF-BW-OnM" secondAttribute="width" id="rT1-ec-ZvB"/>
                             <constraint firstItem="CfR-NY-aSq" firstAttribute="top" secondItem="4Dr-aE-n2n" secondAttribute="bottom" id="uiu-sR-pz8"/>
                             <constraint firstItem="5de-Ou-En0" firstAttribute="leading" secondItem="6dF-BW-OnM" secondAttribute="leading" id="x93-pV-EDf"/>
                             <constraint firstItem="72h-g7-cdE" firstAttribute="top" secondItem="5de-Ou-En0" secondAttribute="bottom" id="yQx-Bd-SGi"/>
