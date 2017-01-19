@@ -33,16 +33,20 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         scrollWidth = scrollView.frame.width
         scrollHeight = scrollView.frame.height
+        
         setupView()
+        
         store.currentDate = getDate(date: Date().today)
         store.yesterdayDate = getDate(date: Date().yesterday)
         
-        currentDate = store.currentDate
-        
+        print(currentDate)
         print(store.currentDate)
         print(store.yesterdayDate)
+        
+        currentDate = store.currentDate
         
         configDatabase()
         
@@ -68,33 +72,27 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tableView.delegate = self
         tableView.dataSource = self
+        
         footView.backgroundColor = Constants.Color.darkGray
+        
         dateLabel.text = "today"
         dateLabel.textColor = UIColor.white
         dateLabel.font = Constants.Font.button
         
         scrollView.delegate = self
-        
         scrollView?.contentSize = CGSize(width: (scrollWidth * 3), height: scrollHeight)
-        
         scrollView.scrollRectToVisible(CGRect( x: scrollWidth * 1, y: 0, width: scrollWidth, height: scrollHeight), animated: true)
         
         if pageControl.currentPage == 0 {
-            
             dateLabel.text = "yesterday"
             
         } else if pageControl.currentPage == 1 {
-            
             dateLabel.text = "today"
         
         } else if pageControl.currentPage == 2 {
-            
             dateLabel.text = "calendar"
             
         }
-        
-        
-        
         
     }
     
@@ -105,7 +103,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "habitCell", for: indexPath) as! HabitTableViewCell
-        
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.cellView.layer.cornerRadius = 3
@@ -124,10 +121,18 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             let habitRank = dailyRoot?["rank"] as? String
             
+            print("====================> \(habitRank)")
+            
+            if habitRank == nil {
+                
+                return
+            }
+            
+            else {
             let imageNumber = "circle\(habitRank!)"
             
             cell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
-            
+            }
         })
         
         cell.habits = habits
@@ -178,7 +183,9 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // update habit list
         
         let habitData = database.child("habit").child(store.user.id)
+        
         habits = []
+        
         store.userHabits = []
         
         habitData.observe(.value, with: { snapshot in
@@ -203,10 +210,11 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             // update daily list
 
             dailyData.observe(.value, with: { (snapshot) in
-                
+                print("============>>>>")
                 let isDate = snapshot.value as? [String:Any]
                 
-                if isDate == nil {
+                
+                if isDate?[self.store.currentDate] == nil {
                     self.updateDailyDatabase()
                     print("I do not exits")
                     
@@ -225,7 +233,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         for habit in store.userHabits {
             
-            database.child("daily").child(currentDate).child(store.user.id).child(habit.id).child("rank").setValue("1")
+            database.child("daily").child(self.store.currentDate).child(store.user.id).child(habit.id).child("rank").setValue("1")
     
         }
     }

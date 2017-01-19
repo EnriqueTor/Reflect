@@ -12,6 +12,9 @@
 		BB0675981E285D3500B4EF9A /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0675971E285D3500B4EF9A /* HabitCollectionViewCell.swift */; };
 		BB06759A1E28847800B4EF9A /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0675991E28847800B4EF9A /* Habit.swift */; };
 		BB4E4F5F1E3063C700C5A96F /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E4F5E1E3063C600C5A96F /* CalendarView.swift */; };
+		BB4E4F611E308B4200C5A96F /* YesterdayTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E4F601E308B4200C5A96F /* YesterdayTableView.swift */; };
+		BB4E4F631E308EE200C5A96F /* YesterdayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E4F621E308EE200C5A96F /* YesterdayTableViewCell.swift */; };
+		BB4E4F651E30A55700C5A96F /* YesterdayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E4F641E30A55700C5A96F /* YesterdayTableViewController.swift */; };
 		BB5283911E25B4B400047A07 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283901E25B4B400047A07 /* WelcomeViewController.swift */; };
 		BB5283931E25B4C200047A07 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283921E25B4C200047A07 /* LoginViewController.swift */; };
 		BB5283951E25B4CD00047A07 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283941E25B4CD00047A07 /* RegisterViewController.swift */; };
@@ -63,6 +66,9 @@
 		BB0675971E285D3500B4EF9A /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
 		BB0675991E28847800B4EF9A /* Habit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		BB4E4F5E1E3063C600C5A96F /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		BB4E4F601E308B4200C5A96F /* YesterdayTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YesterdayTableView.swift; sourceTree = "<group>"; };
+		BB4E4F621E308EE200C5A96F /* YesterdayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YesterdayTableViewCell.swift; sourceTree = "<group>"; };
+		BB4E4F641E30A55700C5A96F /* YesterdayTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YesterdayTableViewController.swift; sourceTree = "<group>"; };
 		BB5283901E25B4B400047A07 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		BB5283921E25B4C200047A07 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BB5283941E25B4CD00047A07 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -157,9 +163,9 @@
 				BB5283921E25B4C200047A07 /* LoginViewController.swift */,
 				BB87919B1E26A78600A8729A /* MainViewController.swift */,
 				BB0675951E28585200B4EF9A /* Main2ViewController.swift */,
+				BB4E4F641E30A55700C5A96F /* YesterdayTableViewController.swift */,
 				BB0675971E285D3500B4EF9A /* HabitCollectionViewCell.swift */,
 				BB5283941E25B4CD00047A07 /* RegisterViewController.swift */,
-				BB4E4F5E1E3063C600C5A96F /* CalendarView.swift */,
 				BB5283901E25B4B400047A07 /* WelcomeViewController.swift */,
 			);
 			name = "View Controller";
@@ -192,7 +198,10 @@
 		BB7ADDA11E25DD730027DDBD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BB4E4F5E1E3063C600C5A96F /* CalendarView.swift */,
+				BB4E4F601E308B4200C5A96F /* YesterdayTableView.swift */,
 				BB7ADD9F1E25DD6E0027DDBD /* Extensions.swift */,
+				BB4E4F621E308EE200C5A96F /* YesterdayTableViewCell.swift */,
 				BB7ADDA21E25E5250027DDBD /* Constants.swift */,
 				BBA4C2671E28BACB006BFEAE /* User.swift */,
 				BBDA3B051E2F491B0022F326 /* Daily.swift */,
@@ -546,6 +555,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBA4C2681E28BACB006BFEAE /* User.swift in Sources */,
+				BB4E4F611E308B4200C5A96F /* YesterdayTableView.swift in Sources */,
 				BB4E4F5F1E3063C700C5A96F /* CalendarView.swift in Sources */,
 				BB5283911E25B4B400047A07 /* WelcomeViewController.swift in Sources */,
 				BBFB441F1E216AA10002E30C /* AppDelegate.swift in Sources */,
@@ -558,8 +568,10 @@
 				BBDA3B061E2F491B0022F326 /* Daily.swift in Sources */,
 				BB87919E1E26AD0A00A8729A /* AppController.swift in Sources */,
 				BB0675961E28585200B4EF9A /* Main2ViewController.swift in Sources */,
+				BB4E4F651E30A55700C5A96F /* YesterdayTableViewController.swift in Sources */,
 				BB7ADDA01E25DD6E0027DDBD /* Extensions.swift in Sources */,
 				BBA4C26C1E28C804006BFEAE /* KeychainWrapper.m in Sources */,
+				BB4E4F631E308EE200C5A96F /* YesterdayTableViewCell.swift in Sources */,
 				BB7ADDA31E25E5250027DDBD /* Constants.swift in Sources */,
 				BBA4C26E1E28C8B5006BFEAE /* DataStore.swift in Sources */,
 				BB87919C1E26A78600A8729A /* MainViewController.swift in Sources */,
