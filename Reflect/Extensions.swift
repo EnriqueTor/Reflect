@@ -67,3 +67,19 @@ public extension UIDevice {
     }
     
 }
+
+extension Date {
+    
+    var yesterday: Date {
+        let calendar = Calendar.current
+        return calendar.date(byAdding: .day, value: -1, to: Date())!
+        
+    }
+
+    var today: Date {
+        
+        return Date()
+    
+    }
+}
+

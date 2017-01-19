@@ -17,9 +17,8 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var footView: UIView!
     @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var headView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var yesterdayView: UIView!
-    @IBOutlet weak var calendarView: UIView!
     
     //MARK: - Variables
     
@@ -27,8 +26,8 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let database = FIRDatabase.database().reference()
     var currentDate: String = ""
     var habits: [Habit] = []
-    var scrollWidth: CGFloat = 0.00
-    var scrollHeight: CGFloat = 0.00
+    var scrollWidth = CGFloat()
+    var scrollHeight = CGFloat()
     
     //MARK: - Loads
     
@@ -37,8 +36,14 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         scrollWidth = scrollView.frame.width
         scrollHeight = scrollView.frame.height
         setupView()
-        currentDate = getDate()
-        store.currentDate = getDate()
+        store.currentDate = getDate(date: Date().today)
+        store.yesterdayDate = getDate(date: Date().yesterday)
+        
+        currentDate = store.currentDate
+        
+        print(store.currentDate)
+        print(store.yesterdayDate)
+        
         configDatabase()
         
         
@@ -68,9 +73,11 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         dateLabel.textColor = UIColor.white
         dateLabel.font = Constants.Font.button
         
-        scrollView.contentSize = CGSize(width: (scrollWidth * 3), height: scrollHeight)
-        scrollView?.delegate = self;
-        scrollView?.isPagingEnabled = true
+        scrollView.delegate = self
+        
+        scrollView?.contentSize = CGSize(width: (scrollWidth * 3), height: scrollHeight)
+        
+        scrollView.scrollRectToVisible(CGRect( x: scrollWidth * 1, y: 0, width: scrollWidth, height: scrollHeight), animated: true)
         
         if pageControl.currentPage == 0 {
             
@@ -98,6 +105,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "habitCell", for: indexPath) as! HabitTableViewCell
+        
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.cellView.layer.cornerRadius = 3
@@ -222,24 +230,31 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    func getDate() -> String {
-        let currentDate = Date()
+    func getDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: currentDate).uppercased()
+        return dateFormatter.string(from: date).uppercased()
     }
+    
     
     
     @IBAction func changePage(){
-        scrollView!.scrollRectToVisible(CGRect( x: scrollWidth * CGFloat ((pageControl?.currentPage)!), y: 0, width: scrollWidth, height: scrollHeight), animated: true)
+        scrollView.scrollRectToVisible(CGRect( x: scrollWidth * CGFloat ((pageControl?.currentPage)!), y: 0, width: scrollWidth, height: scrollHeight), animated: true)
     }
+    
+    
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         setIndiactorForCurrentPage()
     }
     
     func setIndiactorForCurrentPage()  {
-        let page = (scrollView?.contentOffset.x)!/scrollWidth
+        
+        let page = (scrollView.contentOffset.x)/scrollWidth
+        
+        print("===========================")
+        print(page)
+        
         pageControl?.currentPage = Int(page)
         
         if page == 0 {
