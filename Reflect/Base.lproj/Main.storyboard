@@ -352,6 +352,8 @@
                         <outlet property="pageControl" destination="F5h-Vb-4or" id="yOk-a5-qzX"/>
                         <outlet property="scrollView" destination="H9i-hY-LeW" id="dy1-WY-kIy"/>
                         <outlet property="tableView" destination="q0s-ed-WbL" id="Hfo-vs-Oy8"/>
+                        <outlet property="todayTableView" destination="q0s-ed-WbL" id="mfX-kO-Tyx"/>
+                        <outlet property="yesterdayTableView" destination="CcN-rZ-llQ" id="sVv-Hu-L3y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rs8-oe-aea" userLabel="First Responder" sceneMemberID="firstResponder"/>

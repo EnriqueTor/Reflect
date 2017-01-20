@@ -19,7 +19,8 @@ class DataStore{
     var rankHabit: String = RankHabit.select.rawValue
     var currentDate: String = ""
     var yesterdayDate: String = ""
-    var userHabits: [Habit] = []
+    var todayHabits: [Habit] = []
+    var yesterdayHabits: [Habit] = []
     var habitSelected = ""
 
 

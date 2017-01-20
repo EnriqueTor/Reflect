@@ -13,7 +13,8 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //MAK: - Outlets
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var todayTableView: UITableView!
+    @IBOutlet weak var yesterdayTableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var footView: UIView!
     @IBOutlet weak var pageControl: UIPageControl!
@@ -25,7 +26,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let store = DataStore.sharedInstance
     let database = FIRDatabase.database().reference()
     var currentDate: String = ""
-    var habits: [Habit] = []
+//    var todayHabits: [Habit] = []
     var scrollWidth = CGFloat()
     var scrollHeight = CGFloat()
     
@@ -64,8 +65,8 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func setupView() {
 
-        tableView.delegate = self
-        tableView.dataSource = self
+        todayTableView.delegate = self
+        todayTableView.dataSource = self
 
         footView.backgroundColor = Constants.Color.darkGray
         
@@ -95,10 +96,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("THIS IS VERY IMPORTANT!!!! YEAH")
-        print("THIS IS VERY IMPORTANT!!!! YEAH \(habits)")
-
-        return habits.count
+        return store.todayHabits.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,7 +108,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.cellView.layer.cornerRadius = 3
 
-        let habit = habits[indexPath.row]
+        let habit = store.todayHabits[indexPath.row]
         
         cell.habitLabel.text = habit.name
         
@@ -125,6 +123,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         dailyData.observe(.value, with: { (snapshot) in
             
             let dailyRoot = snapshot.value as? [String:Any]
+            
             
             let habitRank = dailyRoot?[self.store.currentDate] as? [String:Any]
             
@@ -142,10 +141,9 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         })
         
-        cell.habits = habits
+        cell.habits = store.todayHabits
         
         return cell
-        
         
     }
     
@@ -157,17 +155,15 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: { action -> Void in
                 
-                let habitID = self.habits[indexPath.row].id
+                let habitID = self.store.todayHabits[indexPath.row].id
                 
-                self.store.userHabits.remove(at: indexPath.row)
-                
-                self.habits.remove(at: indexPath.row)
+                self.store.todayHabits.remove(at: indexPath.row)
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 
                 self.database.child("habit").child(self.store.user.id).child(habitID).removeValue()
                 
-                self.tableView.reloadData()
+                self.todayTableView.reloadData()
                 
                 
             })
@@ -193,9 +189,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         print("==============> \(store.user.id)")
         
-        habits = []
-        
-        store.userHabits = []
+        store.todayHabits = []
         
         habitData.observe(.value, with: { snapshot in
             
@@ -208,12 +202,9 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 newHabits.insert(newHabit, at: 0)
             }
             
+            self.store.todayHabits = newHabits
             
-            self.habits = newHabits
-            
-            self.store.userHabits = self.habits
-            
-            self.tableView.reloadData()
+            self.todayTableView.reloadData()
             
 //            let dailyData = self.database.child("habit").child(self.store.user.id)
 //            
@@ -223,20 +214,18 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //                print("============>>>>")
 //                let isDate = snapshot.value as? [String:Any]
 //                
-//            for habit in self.habits {
-//                
-//                if habit.date[self.currentDate] == nil {
-//                    
-//                    self.updateDailyDatabase()
-//                    print("I do not exits")
-//                }
-//                
-//                else {
-//                    print("I'm alive!!")
-//                    
-//                }
-//                
-//            }
+            for habit in self.store.todayHabits {
+                
+                if habit.date[self.currentDate] == nil {
+                    self.updateDailyDatabase()
+                    print("I do not exits")
+                }
+                
+                else {
+                    print("I'm alive!!")
+                    
+                }
+            }
             
             
 //                
@@ -257,7 +246,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func updateDailyDatabase() {
         
-        for habit in store.userHabits {
+        for habit in store.todayHabits {
             database.child("habit").child(self.store.user.id).child(habit.id).child("date").child(currentDate).setValue("0")
     
         }
