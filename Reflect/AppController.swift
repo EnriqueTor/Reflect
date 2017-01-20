@@ -14,7 +14,7 @@ extension Notification.Name {
     static let openWelcomeVC = Notification.Name("open-welcome-view-controller")
     static let openLoginVC = Notification.Name("open-login-view-controller")
     static let openRegisterVC = Notification.Name("open-register-view-controller")
-    static let openMainVC = Notification.Name("open-family-view-controller")
+    static let openMainVC = Notification.Name("open-main-view-controller")
 
 }
 

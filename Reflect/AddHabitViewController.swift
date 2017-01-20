@@ -211,19 +211,18 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
         guard let name = habitText.text, name != "" else { return }
 
         let dataHabit = database.child("habit").child(store.user.id).childByAutoId()
-        store.habit.id = dataHabit.key
         
-        let newHabit = Habit(id: store.habit.id, name: name, startDate: "", archive: "0")
+        let newHabit = Habit(id: dataHabit.key, name: name, archive: "no", date: [store.currentDate:"1"])
         
-        database.child("habit").child(store.user.id).child(store.habit.id).setValue(newHabit.serialize(), withCompletionBlock: { error, dataRef in
+        database.child("habit").child(store.user.id).child(newHabit.id).setValue(newHabit.serialize(), withCompletionBlock: { error, dataRef in
             
-        
+            self.saveButton.isEnabled = false
+            
+            self.dismissVC()
             
         })
 
-        saveButton.isEnabled = false
         
-        dismissVC()
     }
 
 }

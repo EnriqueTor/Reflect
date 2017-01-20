@@ -34,22 +34,16 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scrollWidth = scrollView.frame.width
-        scrollHeight = scrollView.frame.height
-        
         setupView()
         
         store.currentDate = getDate(date: Date().today)
         store.yesterdayDate = getDate(date: Date().yesterday)
         
-        print(currentDate)
-        print(store.currentDate)
-        print(store.yesterdayDate)
-        
         currentDate = store.currentDate
         
         configDatabase()
         
+        print("THIS IS VERY IMPORTANT!!!! 1")
         
     }
     
@@ -69,20 +63,24 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //MARK: - Methods
     
     func setupView() {
-        
+
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         footView.backgroundColor = Constants.Color.darkGray
         
         dateLabel.text = "today"
         dateLabel.textColor = UIColor.white
         dateLabel.font = Constants.Font.button
         
+        scrollWidth = scrollView.frame.width
+        scrollHeight = scrollView.frame.height
+
         scrollView.delegate = self
+
         scrollView?.contentSize = CGSize(width: (scrollWidth * 3), height: scrollHeight)
         scrollView.scrollRectToVisible(CGRect( x: scrollWidth * 1, y: 0, width: scrollWidth, height: scrollHeight), animated: true)
-        
+
         if pageControl.currentPage == 0 {
             dateLabel.text = "yesterday"
             
@@ -93,16 +91,21 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             dateLabel.text = "calendar"
             
         }
-        
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("THIS IS VERY IMPORTANT!!!! YEAH")
+        print("THIS IS VERY IMPORTANT!!!! YEAH \(habits)")
+
         return habits.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "habitCell", for: indexPath) as! HabitTableViewCell
+        
+        print("THIS IS VERY IMPORTANT!!!! 1")
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.cellView.layer.cornerRadius = 3
@@ -111,7 +114,11 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cell.habitLabel.text = habit.name
         
-        let dailyData = self.database.child("daily").child(currentDate).child(store.user.id).child(habit.id)
+        print("THIS IS VERY IMPORTANT!!!! 2")
+        
+        let dailyData = self.database.child("habit").child(store.user.id).child(habit.id).child("date")
+        
+        print("THIS IS VERY IMPORTANT!!!! 3")
         
         // update daily list
         
@@ -119,7 +126,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             let dailyRoot = snapshot.value as? [String:Any]
             
-            let habitRank = dailyRoot?["rank"] as? String
+            let habitRank = dailyRoot?[self.store.currentDate] as? [String:Any]
             
             print("====================> \(habitRank)")
             
@@ -129,7 +136,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             
             else {
-            let imageNumber = "circle\(habitRank!)"
+            let imageNumber = "circle\(habitRank?["rank"]!)"
             
             cell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
             }
@@ -179,10 +186,12 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func configDatabase() {
-        
+
         // update habit list
         
         let habitData = database.child("habit").child(store.user.id)
+        
+        print("==============> \(store.user.id)")
         
         habits = []
         
@@ -199,31 +208,48 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 newHabits.insert(newHabit, at: 0)
             }
             
+            
             self.habits = newHabits
             
             self.store.userHabits = self.habits
             
             self.tableView.reloadData()
             
-            let dailyData = self.database.child("daily")
+//            let dailyData = self.database.child("habit").child(self.store.user.id)
+//            
+//            // update daily list
+//
+//            dailyData.observe(.value, with: { (snapshot) in
+//                print("============>>>>")
+//                let isDate = snapshot.value as? [String:Any]
+//                
+//            for habit in self.habits {
+//                
+//                if habit.date[self.currentDate] == nil {
+//                    
+//                    self.updateDailyDatabase()
+//                    print("I do not exits")
+//                }
+//                
+//                else {
+//                    print("I'm alive!!")
+//                    
+//                }
+//                
+//            }
             
-            // update daily list
-
-            dailyData.observe(.value, with: { (snapshot) in
-                print("============>>>>")
-                let isDate = snapshot.value as? [String:Any]
-                
-                
-                if isDate?[self.store.currentDate] == nil {
-                    self.updateDailyDatabase()
-                    print("I do not exits")
-                    
-                }
-                else {
-                    print("I'm alive!!")
-                }
-                
-            })
+            
+//                
+//                if isDate?[self.store.currentDate] == nil {
+//                    self.updateDailyDatabase()
+//                    print("I do not exits")
+//                    
+//                }
+//                else {
+//                    print("I'm alive!!")
+//                }
+//                
+//            })
             
         })
     
@@ -232,8 +258,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func updateDailyDatabase() {
         
         for habit in store.userHabits {
-            
-            database.child("daily").child(self.store.currentDate).child(store.user.id).child(habit.id).child("rank").setValue("1")
+            database.child("habit").child(self.store.user.id).child(habit.id).child("date").child(currentDate).child("rank").setValue("1")
     
         }
     }
@@ -259,26 +284,17 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func setIndiactorForCurrentPage()  {
         
         let page = (scrollView.contentOffset.x)/scrollWidth
-        
-        print("===========================")
-        print(page)
-        
         pageControl?.currentPage = Int(page)
         
         if page == 0 {
-            
             dateLabel.text = "yesterday"
-            
-        } else if page == 1 {
-            
-            dateLabel.text = "today"
-            
-        } else if page == 2 {
-            
-            dateLabel.text = "calendar"
-            
         }
-
+        else if page == 1 {
+            dateLabel.text = "today"
+        }
+        else if page == 2 {
+            dateLabel.text = "calendar"
+        }
     }
     
 }

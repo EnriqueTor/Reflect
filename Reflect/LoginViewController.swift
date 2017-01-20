@@ -204,12 +204,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
                     self.errorLabel.text = error.localizedDescription
                 }
                 else {
-                    self.store.user.id = (FIRAuth.auth()?.currentUser?.uid)!
-                    self.store.user.email = email
                     
-                    self.addDataToKeychain(id: self.store.user.id, email: self.store.user.email, pass: pass)
+                    let userData = self.database.child("user").child((user?.uid)!)
                     
-                    NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
+                    userData.observe(.value, with: { (snapshot) in
+                        
+                        let data = snapshot.value as? [String:Any]
+                        
+                        let loggedUser = User(id: "", name: "", email: "", interested: "", premium: "")
+                        
+                        self.store.user = loggedUser.deserialize(data as! [String : String])
+                        
+                        print("=============== this is the login info \(self.store.user.id)")
+                        
+                        self.addDataToKeychain(id: self.store.user.id, email: self.store.user.email, pass: pass)
+                        
+                        NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
+                    })
                 }
             }
         }
@@ -232,6 +243,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         UserDefaults.standard.synchronize()
         
     }
-    
     
 }

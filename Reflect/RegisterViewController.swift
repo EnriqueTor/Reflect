@@ -254,14 +254,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
                 if let error = error {
                     self.errorLabel.text = error.localizedDescription    
                 }
-                self.store.user.id = (FIRAuth.auth()?.currentUser?.uid)!
-                self.store.user.name = name
-                self.store.user.email = email
+                
+                let newUser = User(id: (FIRAuth.auth()?.currentUser?.uid)!, name: name, email: email, interested: "no", premium: "no")
+                
+                self.store.user = newUser
                 
                 self.addDataToKeychain(id: (user?.uid)!, name: name, email: email)
                 
-                self.database.child("user").child(self.store.user.id).child("name").setValue(self.store.user.name)
-                self.database.child("user").child(self.store.user.id).child("email").setValue(self.store.user.email)
+                self.database.child("user").child(self.store.user.id).setValue(newUser.serialize())
                 
                 self.registerPushed()
                 

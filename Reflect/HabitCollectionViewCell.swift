@@ -110,9 +110,9 @@ class HabitTableViewCell: UITableViewCell {
         
         let indexPath :NSIndexPath = (self.superview!.superview as! UITableView).indexPath(for: self)! as NSIndexPath
         
-        let habitID = habits[indexPath.row].id
+        let habit = habits[indexPath.row]
         
-        database.child("daily").child(store.currentDate).child(store.user.id).child(habitID).child("rank").setValue("1")
+        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).child("rank").setValue("1")
         
         hideRank()
         
@@ -124,9 +124,10 @@ class HabitTableViewCell: UITableViewCell {
         
         let indexPath :NSIndexPath = (self.superview!.superview as! UITableView).indexPath(for: self)! as NSIndexPath
         
-        let habitID = habits[indexPath.row].id
+        let habit = habits[indexPath.row]
         
-        database.child("daily").child(store.currentDate).child(store.user.id).child(habitID).child("rank").setValue("2")
+        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).child("rank").setValue("2")
+        
         hideRank()
     }
     
@@ -136,9 +137,9 @@ class HabitTableViewCell: UITableViewCell {
         
         let indexPath :NSIndexPath = (self.superview!.superview as! UITableView).indexPath(for: self)! as NSIndexPath
         
-        let habitID = habits[indexPath.row].id
+        let habit = habits[indexPath.row]
         
-        database.child("daily").child(store.currentDate).child(store.user.id).child(habitID).child("rank").setValue("3")
+        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).child("rank").setValue("3")
         
         hideRank()
     }
@@ -149,9 +150,9 @@ class HabitTableViewCell: UITableViewCell {
         
         let indexPath :NSIndexPath = (self.superview!.superview as! UITableView).indexPath(for: self)! as NSIndexPath
         
-        let habitID = habits[indexPath.row].id
+        let habit = habits[indexPath.row]
         
-        database.child("daily").child(store.currentDate).child(store.user.id).child(habitID).child("rank").setValue("4")
+        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).child("rank").setValue("4")
         
         hideRank()
     }
@@ -162,9 +163,9 @@ class HabitTableViewCell: UITableViewCell {
         
         let indexPath :NSIndexPath = (self.superview!.superview as! UITableView).indexPath(for: self)! as NSIndexPath
         
-        let habitID = habits[indexPath.row].id
+        let habit = habits[indexPath.row]
         
-        database.child("daily").child(store.currentDate).child(store.user.id).child(habitID).child("rank").setValue("5")
+        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).child("rank").setValue("5")
         
         hideRank()
     }

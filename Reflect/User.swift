@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User {
+class User {
   
     var id: String
     var name: String
@@ -24,6 +24,22 @@ struct User {
         self.interested = interested
         self.premium = premium
         
+    }
+    
+    func serialize() -> [String : Any] {
+        return  ["id" : id, "name" : name, "email": email, "interested" : interested, "premium" : premium]
+    }
+
+    func deserialize(_ data: [String : String]) -> User {
+    
+        let id = data["id"] ?? ""
+        let name = data["name"] ?? ""
+        let email = data["email"] ?? ""
+        let interested = data["interested"] ?? ""
+        let premium = data["premium"] ?? ""
+        
+        return User(id: id, name: name, email: email, interested: interested, premium: premium)
+    
     }
     
 }

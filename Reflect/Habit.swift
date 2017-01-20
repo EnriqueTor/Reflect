@@ -9,35 +9,35 @@
 import Foundation
 import Firebase
 
-struct Habit {
+class Habit {
     
     var id: String
     var name: String
-    var startDate: String
     var archive: String
+    var date: [String:String]
     
-    init(id: String, name: String, startDate: String, archive: String) {
+    init(id: String, name: String, archive: String, date: [String:String]) {
         
         self.id = id
         self.name = name
-        self.startDate = startDate
         self.archive = archive
+        self.date = date
         
     }
     
     init(snapshot: FIRDataSnapshot) {
         
-        let snapshotValue = snapshot.value as! [String : AnyObject]
+        let snapshotValue = snapshot.value as? [String : Any]
         
-        id = snapshotValue["id"] as! String
-        name = snapshotValue["name"] as! String
-        startDate = snapshotValue["startDate"] as! String
-        archive = snapshotValue["archive"] as! String
+        id = snapshotValue?["id"] as? String ?? "No id"
+        name = snapshotValue?["name"] as? String ?? "No name"
+        archive = snapshotValue?["archive"] as? String ?? "No archive"
+        date = (snapshotValue?["date"] as? [String : String]) ?? ["No date":"No date"]
         
     }
 
     func serialize() -> [String:Any] {
-        return  ["id" : id, "name": name, "startDate": startDate, "archive": archive]
+        return  ["id" : id, "name": name, "archive": archive, "date": date]
         
     }
 

@@ -14,16 +14,13 @@ class DataStore{
     
     static let sharedInstance = DataStore()
 
-    var user = User(id: "", name: "", email: "")
-    var habit = Habit(id: "", name: "", startDate: "", archive: "")
+    var user = User(id: "", name: "", email: "", interested: "", premium: "")
+//    var habit = Habit(id: "", name: "", archive: "", date: "")
     var rankHabit: String = RankHabit.select.rawValue
     var currentDate: String = ""
     var yesterdayDate: String = ""
     var userHabits: [Habit] = []
     var habitSelected = ""
-
-
-
 
 
 

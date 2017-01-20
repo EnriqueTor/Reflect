@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-struct Daily {
+class Daily {
     
     var date: String
     
@@ -20,9 +20,9 @@ struct Daily {
     
     init(snapshot: FIRDataSnapshot) {
         
-        let snapshotValue = snapshot.value as! [String : AnyObject]
+        let snapshotValue = snapshot.value as? [String : AnyObject]
         
-        date = snapshotValue["date"] as! String
+        date = snapshotValue?["date"] as? String ?? "No date"
         
     }
 

@@ -18,6 +18,7 @@ class WelcomeViewController: UIViewController {
     let reflectIcon = UIImageView()
     let errorLabel = UILabel()
     let myKeychainWrapper = KeychainWrapper()
+    let database = FIRDatabase.database().reference()
     let store = DataStore.sharedInstance
     
     // MARK: - Loads
@@ -26,7 +27,6 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         login()
-        print("============================> \(store.user.id)")
     }
     
     //MARK: - Functions
@@ -86,7 +86,7 @@ class WelcomeViewController: UIViewController {
         registerButton.isUserInteractionEnabled = true
         registerButton.addTarget(self, action: #selector(WelcomeViewController.registerPushed), for: UIControlEvents.touchUpInside)
         
-        //MARK: errorLabel
+        //errorLabel
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(errorLabel)
         errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -123,11 +123,24 @@ class WelcomeViewController: UIViewController {
                     self.errorLabel.text = error?.localizedDescription
                 }
                 else {
-                self.store.user.id = (FIRAuth.auth()?.currentUser?.uid)!
-                self.store.user.email = email!
-                
-                NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
-            
+                    
+                    let userData = self.database.child("user").child((user?.uid)!)
+                    
+                    // update daily list
+                    
+                    userData.observe(.value, with: { (snapshot) in
+                        
+                        let data = snapshot.value as? [String:Any]
+
+                        let loggedUser = User(id: "", name: "", email: "", interested: "", premium: "")
+                        
+                        self.store.user = loggedUser.deserialize(data as! [String : String])
+                        
+                        print("this is the store user in the database ======> \(self.store.user)")
+                                                
+                        NotificationCenter.default.post(name: Notification.Name.openMainVC, object: nil)
+
+                    })
                 }
             }
         }

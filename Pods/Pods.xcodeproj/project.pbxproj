@@ -86,7 +86,6 @@
 		2014CB1FE0BF1D3F0A7CE1B6A7CAF036 /* SwiftKeychainWrapper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftKeychainWrapper-prefix.pch"; sourceTree = "<group>"; };
 		2E24AABA653636CB4E8FDE3316854CD2 /* GTMDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		2E623E6055C0C2E5E432CD0B61FC627D /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Frameworks/frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
-		3021F19350302FB9379E3BCA98BBDA5C /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Frameworks/frameworks/FirebaseCore.framework; sourceTree = "<group>"; };
 		3057E0CB64EF72D3D115ADABCA113FD8 /* GoogleToolboxForMac-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GoogleToolboxForMac-umbrella.h"; sourceTree = "<group>"; };
 		31001791DB765091284233EAA0EA6F7C /* GTMNSDictionary+URLArguments.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "GTMNSDictionary+URLArguments.m"; path = "Foundation/GTMNSDictionary+URLArguments.m"; sourceTree = "<group>"; };
 		33356A8BEF27759E2F7E4757BD6ECEF0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,6 +141,7 @@
 		BFF568C0DE7C38A269A1A259B2FB77A3 /* Pods-ReflectUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ReflectUITests-acknowledgements.plist"; sourceTree = "<group>"; };
 		C0288B9D867A91D22534AD918E0C9DE2 /* SwiftKeychainWrapper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftKeychainWrapper-dummy.m"; sourceTree = "<group>"; };
 		C340D7C9FCD1A580DE2300A61B78C699 /* GTMSessionFetcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMSessionFetcher.h; path = Source/GTMSessionFetcher.h; sourceTree = "<group>"; };
+		C4C07FE2D9A59DC3FC70539536D5B8CD /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Frameworks/FirebaseCore.framework; sourceTree = "<group>"; };
 		C511F9DD69CE58423876C65E91B16A6C /* Pods-ReflectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ReflectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C940F55B6C28F8782C8A6379317E5ADB /* GTMMethodCheck.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMMethodCheck.h; path = DebugUtils/GTMMethodCheck.h; sourceTree = "<group>"; };
 		CAFD15069DBFFAF7E7CD48183E2D230C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
@@ -350,14 +350,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7612132180A3ED924E335DAFB44FC741 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3021F19350302FB9379E3BCA98BBDA5C /* FirebaseCore.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		7C6F49E67B4DCEE08E25C6051CB9821B /* NSDictionary+URLArguments */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,6 +399,14 @@
 				2E24AABA653636CB4E8FDE3316854CD2 /* GTMDefines.h */,
 			);
 			name = Defines;
+			sourceTree = "<group>";
+		};
+		91C8A58F6E55BD30A82926C9BB9A4E32 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4C07FE2D9A59DC3FC70539536D5B8CD /* FirebaseCore.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		950E2E1708D3C356EEA62C224A27C1BF /* Pods-ReflectUITests */ = {
@@ -487,7 +487,7 @@
 		C7F7E9B88EA19E781FFA79B4723FB8F9 /* FirebaseCore */ = {
 			isa = PBXGroup;
 			children = (
-				7612132180A3ED924E335DAFB44FC741 /* Frameworks */,
+				91C8A58F6E55BD30A82926C9BB9A4E32 /* Frameworks */,
 			);
 			name = FirebaseCore;
 			path = FirebaseCore;
