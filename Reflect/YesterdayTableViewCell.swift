@@ -1,16 +1,16 @@
 //
-//  HabitCollectionViewCell.swift
+//  YesterdayTableViewCell.swift
 //  Reflect
 //
-//  Created by Enrique Torrendell on 1/12/17.
+//  Created by Enrique Torrendell on 1/20/17.
 //  Copyright © 2017 Enrique Torrendell. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class HabitTableViewCell: UITableViewCell {
-    
+class YesterdayTableViewCell: UITableViewCell {
+
     @IBOutlet weak var habitLabel: UILabel!
     @IBOutlet weak var cellMainView: UIView!
     @IBOutlet weak var cellView: UIView!
@@ -70,7 +70,7 @@ class HabitTableViewCell: UITableViewCell {
         circle1.centerYAnchor.constraint(equalTo: reflectView.centerYAnchor).isActive = true
         circle1.setImage(Constants.Images.circle1, for: .normal)
         circle1.addTarget(self, action:  #selector(rankSelected1), for: .touchUpInside)
-                circle1.alpha = 0
+        circle1.alpha = 0
         
         //MARK: circle4
         circle4.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +81,7 @@ class HabitTableViewCell: UITableViewCell {
         circle4.centerYAnchor.constraint(equalTo: reflectView.centerYAnchor).isActive = true
         circle4.setImage(Constants.Images.circle4, for: .normal)
         circle4.addTarget(self, action:  #selector(rankSelected4), for: .touchUpInside)
-                circle4.alpha = 0
+        circle4.alpha = 0
         
         //MARK: circle5
         circle5.translatesAutoresizingMaskIntoConstraints = false
@@ -112,7 +112,7 @@ class HabitTableViewCell: UITableViewCell {
         
         let habit = habits[indexPath.row]
         
-        database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.currentDate:"1"])
+        database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.yesterdayDate:"1"])
         
         hideRank()
         
@@ -126,7 +126,7 @@ class HabitTableViewCell: UITableViewCell {
         
         let habit = habits[indexPath.row]
         
-        database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.currentDate:"2"])
+        database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.yesterdayDate:"2"])
         
         hideRank()
     }
@@ -139,7 +139,7 @@ class HabitTableViewCell: UITableViewCell {
         
         let habit = habits[indexPath.row]
         
-        database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.currentDate:"3"])
+        database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.yesterdayDate:"3"])
         
         hideRank()
     }
@@ -152,7 +152,7 @@ class HabitTableViewCell: UITableViewCell {
         
         let habit = habits[indexPath.row]
         
-        database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.currentDate:"4"])
+        database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.yesterdayDate:"4"])
         
         hideRank()
     }
@@ -165,7 +165,7 @@ class HabitTableViewCell: UITableViewCell {
         
         let habit = habits[indexPath.row]
         
-        database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.currentDate:"5"])
+        database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.yesterdayDate:"5"])
         
         hideRank()
     }
@@ -181,6 +181,4 @@ class HabitTableViewCell: UITableViewCell {
             self.circle5.alpha = 0
         })
     }
-    
-    
 }

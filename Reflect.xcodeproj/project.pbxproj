@@ -11,6 +11,7 @@
 		BB0675961E28585200B4EF9A /* Main2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0675951E28585200B4EF9A /* Main2ViewController.swift */; };
 		BB0675981E285D3500B4EF9A /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0675971E285D3500B4EF9A /* HabitCollectionViewCell.swift */; };
 		BB06759A1E28847800B4EF9A /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0675991E28847800B4EF9A /* Habit.swift */; };
+		BB1944D31E32D136007230D7 /* YesterdayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1944D21E32D136007230D7 /* YesterdayTableViewCell.swift */; };
 		BB4E4F5F1E3063C700C5A96F /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E4F5E1E3063C600C5A96F /* CalendarView.swift */; };
 		BB5283911E25B4B400047A07 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283901E25B4B400047A07 /* WelcomeViewController.swift */; };
 		BB5283931E25B4C200047A07 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5283921E25B4C200047A07 /* LoginViewController.swift */; };
@@ -61,6 +62,7 @@
 		BB0675951E28585200B4EF9A /* Main2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main2ViewController.swift; sourceTree = "<group>"; };
 		BB0675971E285D3500B4EF9A /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
 		BB0675991E28847800B4EF9A /* Habit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		BB1944D21E32D136007230D7 /* YesterdayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YesterdayTableViewCell.swift; sourceTree = "<group>"; };
 		BB4E4F5E1E3063C600C5A96F /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		BB5283901E25B4B400047A07 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		BB5283921E25B4C200047A07 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				BB5283921E25B4C200047A07 /* LoginViewController.swift */,
 				BB0675951E28585200B4EF9A /* Main2ViewController.swift */,
 				BB0675971E285D3500B4EF9A /* HabitCollectionViewCell.swift */,
+				BB1944D21E32D136007230D7 /* YesterdayTableViewCell.swift */,
 				BB5283941E25B4CD00047A07 /* RegisterViewController.swift */,
 				BB5283901E25B4B400047A07 /* WelcomeViewController.swift */,
 			);
@@ -546,6 +549,7 @@
 				BB4E4F5F1E3063C700C5A96F /* CalendarView.swift in Sources */,
 				BB5283911E25B4B400047A07 /* WelcomeViewController.swift in Sources */,
 				BBFB441F1E216AA10002E30C /* AppDelegate.swift in Sources */,
+				BB1944D31E32D136007230D7 /* YesterdayTableViewCell.swift in Sources */,
 				BB5283951E25B4CD00047A07 /* RegisterViewController.swift in Sources */,
 				BB5283931E25B4C200047A07 /* LoginViewController.swift in Sources */,
 				BB0675981E285D3500B4EF9A /* HabitCollectionViewCell.swift in Sources */,

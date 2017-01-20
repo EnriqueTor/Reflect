@@ -25,8 +25,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     let store = DataStore.sharedInstance
     let database = FIRDatabase.database().reference()
-    var currentDate: String = ""
-//    var todayHabits: [Habit] = []
     var scrollWidth = CGFloat()
     var scrollHeight = CGFloat()
     
@@ -40,17 +38,19 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         store.currentDate = getDate(date: Date().today)
         store.yesterdayDate = getDate(date: Date().yesterday)
         
-        currentDate = store.currentDate
-        
         configDatabase()
         
-        print("THIS IS VERY IMPORTANT!!!! 1")
+        todayTableView.reloadData()
+        yesterdayTableView.reloadData()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setupView()
+        //        setupView()
+        configDatabase()
+        todayTableView.reloadData()
+        yesterdayTableView.reloadData()
     }
     
     //MARK: - Actions
@@ -64,10 +64,13 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //MARK: - Methods
     
     func setupView() {
-
+        
         todayTableView.delegate = self
         todayTableView.dataSource = self
-
+        
+        yesterdayTableView.delegate = self
+        yesterdayTableView.dataSource = self
+        
         footView.backgroundColor = Constants.Color.darkGray
         
         dateLabel.text = "today"
@@ -76,75 +79,99 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         scrollWidth = scrollView.frame.width
         scrollHeight = scrollView.frame.height
-
+        
         scrollView.delegate = self
-
+        
         scrollView?.contentSize = CGSize(width: (scrollWidth * 3), height: scrollHeight)
         scrollView.scrollRectToVisible(CGRect( x: scrollWidth * 1, y: 0, width: scrollWidth, height: scrollHeight), animated: true)
-
+        
         if pageControl.currentPage == 0 {
             dateLabel.text = "yesterday"
             
         } else if pageControl.currentPage == 1 {
             dateLabel.text = "today"
-        
+            
         } else if pageControl.currentPage == 2 {
             dateLabel.text = "calendar"
             
         }
-
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return store.todayHabits.count
+        
+        if tableView == todayTableView {
+            return store.todayHabits.count
+        }
+        
+        if tableView == yesterdayTableView {
+            return store.yesterdayHabits.count
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "habitCell", for: indexPath) as! HabitTableViewCell
+        if tableView == todayTableView {
+            
+            let todayCell = todayTableView.dequeueReusableCell(withIdentifier: "habitCell", for: indexPath) as! HabitTableViewCell
+            
+            todayCell.selectionStyle = UITableViewCellSelectionStyle.none
+            todayCell.cellView.layer.cornerRadius = 3
+            
+            print("0000000000000000000000000000000")
+            
+            let todayHabit = store.todayHabits[indexPath.row]
+            
+            print("==========> this is TODAY database \(store.habits)")
+            print("==========> this is TODAY database \(store.todayHabits)")
+            print("==========> this is TODAY database \(store.yesterdayHabits)")
+            
+            //        let yesterdayHabit = store.yesterdayHabits[indexPath.row]
+            
+            todayCell.habitLabel.text = todayHabit.name
+            
+            let habitRank = todayHabit.date[store.currentDate]
+            
+            let imageNumber = "circle\(habitRank!)"
+            
+            todayCell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
+            
+            todayCell.habits = store.todayHabits
+            
+            //        if tableView != todayTableView {
+            //
+            //            cell.habits = store.yesterdayHabits
+            //        }
+            
+            return todayCell
+            
+        }
         
-        print("THIS IS VERY IMPORTANT!!!! 1")
-        
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
-        cell.cellView.layer.cornerRadius = 3
+        if tableView == yesterdayTableView {
+            
+            let yesterdayCell = yesterdayTableView.dequeueReusableCell(withIdentifier: "yesterdayCell", for: indexPath) as! YesterdayTableViewCell
+            
+            yesterdayCell.selectionStyle = UITableViewCellSelectionStyle.none
+            yesterdayCell.cellView.layer.cornerRadius = 3
 
-        let habit = store.todayHabits[indexPath.row]
-        
-        cell.habitLabel.text = habit.name
-        
-        print("THIS IS VERY IMPORTANT!!!! 2")
-        
-        let dailyData = self.database.child("habit").child(store.user.id).child(habit.id).child("date")
-        
-        print("THIS IS VERY IMPORTANT!!!! 3")
-        
-        // update daily list
-        
-        dailyData.observe(.value, with: { (snapshot) in
+            let yesterdayHabit = store.yesterdayHabits[indexPath.row]
             
-            let dailyRoot = snapshot.value as? [String:Any]
+            yesterdayCell.habitLabel.text = yesterdayHabit.name
             
+            let habitRank = yesterdayHabit.date[store.yesterdayDate]
             
-            let habitRank = dailyRoot?[self.store.currentDate] as? [String:Any]
+            let imageNumber = "circle\(habitRank!)"
             
-            print("====================> \(habitRank)")
+            yesterdayCell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
             
-            if habitRank == nil {
-                
-                return
-            }
+            yesterdayCell.habits = store.yesterdayHabits
             
-            else {
-            let imageNumber = "circle\(habitRank?["rank"]!)"
-            
-            cell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
-            }
-        })
+            return yesterdayCell
+        }
         
-        cell.habits = store.todayHabits
-        
-        return cell
-        
+        return todayTableView.dequeueReusableCell(withIdentifier: "habitCell")!
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -159,7 +186,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 
                 self.store.todayHabits.remove(at: indexPath.row)
                 
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                self.todayTableView.deleteRows(at: [indexPath], with: .fade)
                 
                 self.database.child("habit").child(self.store.user.id).child(habitID).removeValue()
                 
@@ -182,73 +209,82 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func configDatabase() {
-
-        // update habit list
         
         let habitData = database.child("habit").child(store.user.id)
         
-        print("==============> \(store.user.id)")
-        
-        store.todayHabits = []
+        store.habits = []
+        store.yesterdayHabits = []
         
         habitData.observe(.value, with: { snapshot in
             
-            var newHabits: [Habit] = []
+            var newHabits = [Habit]()
             
             for item in snapshot.children {
                 
                 let newHabit = Habit(snapshot: (item as? FIRDataSnapshot)!)
                 
                 newHabits.insert(newHabit, at: 0)
+                
             }
-            
-            self.store.todayHabits = newHabits
-            
+            self.store.habits = newHabits
+            self.fillTodayAndYesterday()
+            self.fillToday(date: self.store.currentDate)
+            self.fillyesterday(date: self.store.yesterdayDate)
             self.todayTableView.reloadData()
-            
-//            let dailyData = self.database.child("habit").child(self.store.user.id)
-//            
-//            // update daily list
-//
-//            dailyData.observe(.value, with: { (snapshot) in
-//                print("============>>>>")
-//                let isDate = snapshot.value as? [String:Any]
-//                
-            for habit in self.store.todayHabits {
-                
-                if habit.date[self.currentDate] == nil {
-                    self.updateDailyDatabase()
-                    print("I do not exits")
-                }
-                
-                else {
-                    print("I'm alive!!")
-                    
-                }
-            }
-            
-            
-//                
-//                if isDate?[self.store.currentDate] == nil {
-//                    self.updateDailyDatabase()
-//                    print("I do not exits")
-//                    
-//                }
-//                else {
-//                    print("I'm alive!!")
-//                }
-//                
-//            })
+            self.yesterdayTableView.reloadData()
             
         })
-    
+        
     }
     
-    func updateDailyDatabase() {
-        
-        for habit in store.todayHabits {
-            database.child("habit").child(self.store.user.id).child(habit.id).child("date").child(currentDate).setValue("0")
     
+    
+    
+    func fillToday(date: String) {
+        
+        store.todayHabits = []
+        
+        for habit in store.habits {
+            
+            var habitDate = habit.date
+            
+            if habitDate[date]?.isEmpty == false {
+                
+                store.todayHabits.insert(habit, at: 0)
+            }
+        }
+    }
+    
+    func fillyesterday(date: String) {
+        
+        store.yesterdayHabits = []
+        
+        for habit in store.habits {
+            
+            var habitDate = habit.date
+            
+            if habitDate[date]?.isEmpty == false {
+                
+                store.yesterdayHabits.insert(habit, at: 0)
+            }
+        }
+    }
+    
+    func fillTodayAndYesterday() {
+        
+        for habit in store.habits {
+            
+            var habitDate = habit.date
+            
+            if habitDate[store.currentDate] == nil {
+                
+                database.child("habit").child(self.store.user.id).child(habit.id).child("date").child(store.currentDate).setValue("0")
+            }
+            
+            if habitDate[store.yesterdayDate] == nil {
+                
+                database.child("habit").child(self.store.user.id).child(habit.id).child("date").child(store.yesterdayDate).setValue("0")
+            }
         }
     }
     
@@ -285,5 +321,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             dateLabel.text = "calendar"
         }
     }
+    
     
 }
