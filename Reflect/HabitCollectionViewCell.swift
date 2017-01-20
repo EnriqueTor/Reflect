@@ -112,7 +112,7 @@ class HabitTableViewCell: UITableViewCell {
         
         let habit = habits[indexPath.row]
         
-        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).child("rank").setValue("1")
+        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).setValue("1")
         
         hideRank()
         
@@ -126,7 +126,7 @@ class HabitTableViewCell: UITableViewCell {
         
         let habit = habits[indexPath.row]
         
-        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).child("rank").setValue("2")
+        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).setValue("2")
         
         hideRank()
     }
@@ -139,7 +139,7 @@ class HabitTableViewCell: UITableViewCell {
         
         let habit = habits[indexPath.row]
         
-        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).child("rank").setValue("3")
+        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).setValue("3")
         
         hideRank()
     }
@@ -152,7 +152,7 @@ class HabitTableViewCell: UITableViewCell {
         
         let habit = habits[indexPath.row]
         
-        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).child("rank").setValue("4")
+        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).setValue("4")
         
         hideRank()
     }
@@ -165,7 +165,7 @@ class HabitTableViewCell: UITableViewCell {
         
         let habit = habits[indexPath.row]
         
-        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).child("rank").setValue("5")
+        database.child("habit").child(store.user.id).child(habit.id).child("date").child(store.currentDate).setValue("5")
         
         hideRank()
     }

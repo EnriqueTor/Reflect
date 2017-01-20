@@ -258,7 +258,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func updateDailyDatabase() {
         
         for habit in store.userHabits {
-            database.child("habit").child(self.store.user.id).child(habit.id).child("date").child(currentDate).child("rank").setValue("1")
+            database.child("habit").child(self.store.user.id).child(habit.id).child("date").child(currentDate).setValue("0")
     
         }
     }
