@@ -32,6 +32,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
+    }
+
+    
     //MARK: - Functions
     func setupView() {
         
@@ -158,6 +169,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         emailText.resignFirstResponder()
         passText.resignFirstResponder()
@@ -167,6 +182,51 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     func textFieldDidChange(sender: UITextField) {
         textChanged(sender)
     }
+    
+    func keyboardWillShow(_ notification:Notification) {
+        
+        if passText.isEditing || emailText.isEditing {
+            
+            view.frame.origin.y = 0 - getKeyboardHeight(notification)
+            
+        }
+    }
+    
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        
+        return keyboardSize.cgRectValue.height/4.00
+    }
+    
+    func subscribeToKeyboardNotifications() {
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_:)),
+                                               name: .UIKeyboardWillShow,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)),
+                                               name: .UIKeyboardWillHide,
+                                               object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .UIKeyboardWillShow,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .UIKeyboardWillHide,
+                                                  object: nil)
+    }
+    
+    func keyboardWillHide(_ notification:Notification) {
+        
+        view.frame.origin.y = 0
+    }
+
     
     func textChanged(_ sender: UITextField) {
         

@@ -45,7 +45,6 @@ class SettingsView: UIView, UIGestureRecognizerDelegate {
         backgroundView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         backgroundView.backgroundColor = Constants.Color.reflect0
         backgroundView.isUserInteractionEnabled = true
-        backgroundView.addGestureRecognizer(tapDismiss)
         
         //MARK: loginView
         loginView.translatesAutoresizingMaskIntoConstraints = false

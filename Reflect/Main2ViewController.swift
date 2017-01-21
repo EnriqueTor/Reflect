@@ -16,11 +16,10 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var todayTableView: UITableView!
     @IBOutlet weak var yesterdayTableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var footView: UIView!
-    @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var headView: UIView!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var footView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet var addHabitSwipe: UISwipeGestureRecognizer!
     
     //MARK: - Variables
     
@@ -49,6 +48,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         //        setupView()
+
         configDatabase()
         todayTableView.reloadData()
         yesterdayTableView.reloadData()
@@ -56,17 +56,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //MARK: - Actions
     
-    @IBAction func dismissVC(_ sender: UIButton) {
-        UserDefaults.standard.setValue(nil, forKey: "email")
-        NotificationCenter.default.post(name: NSNotification.Name.openWelcomeVC, object: nil)
-        
-    }
-    
-    @IBAction func addHabitSwipe(_ sender: UISwipeGestureRecognizer) {
-        
-        performSegue(withIdentifier: "addHabit", sender: self)
-        
-    }
     //MARK: - Methods
     
     func setupView() {
@@ -77,7 +66,9 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         yesterdayTableView.delegate = self
         yesterdayTableView.dataSource = self
         
-        footView.backgroundColor = Constants.Color.darkGray
+//        footView.backgroundColor = Constants.Color.darkGray
+        
+        
         
         dateLabel.text = "today"
         dateLabel.textColor = UIColor.white
@@ -241,8 +232,9 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
-    
-    
+    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+        performSegue(withIdentifier: "addHabit", sender: nil)
+    }
     
     func fillToday(date: String) {
         

@@ -36,7 +36,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         super.viewDidLoad()
         setupView()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        subscribeToKeyboardNotifications()
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
+    }
+
     //MARK: - Functions
     func setupView() {
         
@@ -129,6 +139,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         emailText.font = Constants.Font.button
         emailText.textColor = Constants.Color.orangeCool
         emailText.autocapitalizationType = .none
+        emailText.autocorrectionType = .no
         emailText.setLeftPaddingPoints(50)
         emailText.setRightPaddingPoints(10)
         emailText.delegate = self
@@ -148,6 +159,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         nameText.font = Constants.Font.button
         nameText.textColor = Constants.Color.orangeCool
         nameText.autocapitalizationType = .words
+        nameText.autocorrectionType = .no
         nameText.setLeftPaddingPoints(50)
         nameText.setRightPaddingPoints(10)
         nameText.delegate = self
@@ -200,6 +212,54 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
     
     func textFieldDidChange(sender: UITextField) {
         textChanged(sender)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
+    func keyboardWillShow(_ notification:Notification) {
+        
+        if passText.isEditing || emailText.isEditing || nameText.isEditing {
+            
+            view.frame.origin.y = 0 - getKeyboardHeight(notification)
+            
+        }
+    }
+    
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        
+        return keyboardSize.cgRectValue.height/2.50
+    }
+    
+    func subscribeToKeyboardNotifications() {
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_:)),
+                                               name: .UIKeyboardWillShow,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)),
+                                               name: .UIKeyboardWillHide,
+                                               object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .UIKeyboardWillShow,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .UIKeyboardWillHide,
+                                                  object: nil)
+    }
+    
+    func keyboardWillHide(_ notification:Notification) {
+        
+        view.frame.origin.y = 0
     }
     
     func textChanged(_ sender: UITextField) {
