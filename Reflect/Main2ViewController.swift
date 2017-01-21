@@ -20,6 +20,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var headView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet var addHabitSwipe: UISwipeGestureRecognizer!
     
     //MARK: - Variables
     
@@ -61,6 +62,11 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
+    @IBAction func addHabitSwipe(_ sender: UISwipeGestureRecognizer) {
+        
+        performSegue(withIdentifier: "addHabit", sender: self)
+        
+    }
     //MARK: - Methods
     
     func setupView() {
@@ -82,18 +88,20 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         scrollView.delegate = self
         
-        scrollView?.contentSize = CGSize(width: (scrollWidth * 3), height: scrollHeight)
-        scrollView.scrollRectToVisible(CGRect( x: scrollWidth * 1, y: 0, width: scrollWidth, height: scrollHeight), animated: true)
+        scrollView?.contentSize = CGSize(width: (scrollWidth * 4), height: scrollHeight)
+        scrollView.scrollRectToVisible(CGRect( x: scrollWidth * 2, y: 0, width: scrollWidth, height: scrollHeight), animated: true)
         
         if pageControl.currentPage == 0 {
-            dateLabel.text = "yesterday"
+            dateLabel.text = "Settings"
             
         } else if pageControl.currentPage == 1 {
-            dateLabel.text = "today"
+            dateLabel.text = "Yesterday"
             
         } else if pageControl.currentPage == 2 {
-            dateLabel.text = "calendar"
+            dateLabel.text = "Today"
             
+        } else if pageControl.currentPage == 3 {
+            dateLabel.text = "Calendar"
         }
         
     }
@@ -308,13 +316,16 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         pageControl?.currentPage = Int(page)
         
         if page == 0 {
-            dateLabel.text = "yesterday"
+            dateLabel.text = "Settings"
         }
         else if page == 1 {
-            dateLabel.text = "today"
+            dateLabel.text = "Yesterday"
         }
         else if page == 2 {
-            dateLabel.text = "calendar"
+            dateLabel.text = "Today"
+        }
+        else if page == 3 {
+            dateLabel.text = "Calendar"
         }
     }
     

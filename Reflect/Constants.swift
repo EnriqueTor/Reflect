@@ -31,6 +31,7 @@ struct Constants {
         static let title = UIFont(name: "AvenirNext-Regular", size: 20)
         static let subtitle = UIFont(name: "AvenirNext-DemiBold", size: 20)
         static let button = UIFont(name: "AvenirNext-Regular", size: 16)
+        static let button2 = UIFont(name: "AvenirNext-Medium", size: 16)
         static let small = UIFont(name: "AvenirNext-Regular", size: 10)
         static let plus = UIFont(name: "AvenirNext-Regular", size: 30)
         static let iconTitle = UIFont(name: "AvenirNext-DemiBold", size: 50)
