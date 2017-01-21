@@ -102,7 +102,6 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
         habitText.font = Constants.Font.button
         habitText.textColor = Constants.Color.orangeCool
         habitText.autocapitalizationType = .words
-        habitText.autocapitalizationType = .none
         habitText.setLeftPaddingPoints(10)
         habitText.setRightPaddingPoints(10)
         habitText.autocorrectionType = .no
@@ -212,7 +211,10 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
 
         let dataHabit = database.child("habit").child(store.user.id).childByAutoId()
         
-        let newHabit = Habit(id: dataHabit.key, name: name, archive: "no", date: [store.currentDate:"0"])
+        
+        let newHabit = Habit(id: dataHabit.key, name: name, startDate: store.currentDate, endDate: "", archive: "no", date: [store.currentDate:"0"])
+        
+        database.child("daily").child(store.user.id).child(dataHabit.key).child(store.currentDate).setValue("0")
         
         database.child("habit").child(store.user.id).child(newHabit.id).setValue(newHabit.serialize(), withCompletionBlock: { error, dataRef in
             

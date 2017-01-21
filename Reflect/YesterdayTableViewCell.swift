@@ -113,6 +113,8 @@ class YesterdayTableViewCell: UITableViewCell {
         let habit = habits[indexPath.row]
         
         database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.yesterdayDate:"1"])
+        database.child("daily").child(store.yesterdayDate).child(store.user.id).child(habit.id).setValue("1")
+
         
         hideRank()
         
@@ -127,6 +129,8 @@ class YesterdayTableViewCell: UITableViewCell {
         let habit = habits[indexPath.row]
         
         database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.yesterdayDate:"2"])
+        database.child("daily").child(store.yesterdayDate).child(store.user.id).child(habit.id).setValue("2")
+
         
         hideRank()
     }
@@ -140,7 +144,8 @@ class YesterdayTableViewCell: UITableViewCell {
         let habit = habits[indexPath.row]
         
         database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.yesterdayDate:"3"])
-        
+        database.child("daily").child(store.yesterdayDate).child(store.user.id).child(habit.id).setValue("3")
+
         hideRank()
     }
     
@@ -153,6 +158,8 @@ class YesterdayTableViewCell: UITableViewCell {
         let habit = habits[indexPath.row]
         
         database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.yesterdayDate:"4"])
+        database.child("daily").child(store.yesterdayDate).child(store.user.id).child(habit.id).setValue("4")
+
         
         hideRank()
     }
@@ -166,6 +173,7 @@ class YesterdayTableViewCell: UITableViewCell {
         let habit = habits[indexPath.row]
         
         database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.yesterdayDate:"5"])
+        database.child("daily").child(store.yesterdayDate).child(store.user.id).child(habit.id).setValue("5")
         
         hideRank()
     }

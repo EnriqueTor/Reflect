@@ -120,17 +120,18 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             todayCell.selectionStyle = UITableViewCellSelectionStyle.none
             todayCell.cellView.layer.cornerRadius = 3
             
-            print("0000000000000000000000000000000")
+            
             
             let todayHabit = store.todayHabits[indexPath.row]
             
-            print("==========> this is TODAY database \(store.habits)")
-            print("==========> this is TODAY database \(store.todayHabits)")
-            print("==========> this is TODAY database \(store.yesterdayHabits)")
-            
-            //        let yesterdayHabit = store.yesterdayHabits[indexPath.row]
-            
             todayCell.habitLabel.text = todayHabit.name
+            
+            if todayHabit.startDate == store.currentDate {
+                todayCell.newHabitLabel.text = "New"
+            }
+            else {
+                todayCell.newHabitLabel.text = ""
+            }
             
             let habitRank = todayHabit.date[store.currentDate]
             
@@ -139,11 +140,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             todayCell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
             
             todayCell.habits = store.todayHabits
-            
-            //        if tableView != todayTableView {
-            //
-            //            cell.habits = store.yesterdayHabits
-            //        }
             
             return todayCell
             
@@ -272,7 +268,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func fillTodayAndYesterday() {
         
-        for habit in store.habits {
+        for habit in store.habits { 
             
             var habitDate = habit.date
             

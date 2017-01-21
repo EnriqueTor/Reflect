@@ -16,6 +16,7 @@ class HabitTableViewCell: UITableViewCell {
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var reflectButton: UIButton!
     @IBOutlet weak var reflectView: UIView!
+    @IBOutlet weak var newHabitLabel: UILabel!
     
     let circle1 = UIButton()
     let circle2 = UIButton()
@@ -113,6 +114,7 @@ class HabitTableViewCell: UITableViewCell {
         let habit = habits[indexPath.row]
         
         database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.currentDate:"1"])
+        database.child("daily").child(store.currentDate).child(store.user.id).child(habit.id).setValue("1")
         
         hideRank()
         
@@ -127,6 +129,7 @@ class HabitTableViewCell: UITableViewCell {
         let habit = habits[indexPath.row]
         
         database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.currentDate:"2"])
+        database.child("daily").child(store.currentDate).child(store.user.id).child(habit.id).setValue("2")
         
         hideRank()
     }
@@ -140,6 +143,7 @@ class HabitTableViewCell: UITableViewCell {
         let habit = habits[indexPath.row]
         
         database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.currentDate:"3"])
+        database.child("daily").child(store.currentDate).child(store.user.id).child(habit.id).setValue("3")
         
         hideRank()
     }
@@ -153,6 +157,7 @@ class HabitTableViewCell: UITableViewCell {
         let habit = habits[indexPath.row]
         
         database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.currentDate:"4"])
+        database.child("daily").child(store.currentDate).child(store.user.id).child(habit.id).setValue("4")
         
         hideRank()
     }
@@ -166,6 +171,7 @@ class HabitTableViewCell: UITableViewCell {
         let habit = habits[indexPath.row]
         
         database.child("habit").child(store.user.id).child(habit.id).child("date").updateChildValues([store.currentDate:"5"])
+        database.child("daily").child(store.currentDate).child(store.user.id).child(habit.id).setValue("5")
         
         hideRank()
     }

@@ -13,13 +13,17 @@ class Habit {
     
     var id: String
     var name: String
+    var startDate: String
+    var endDate: String
     var archive: String
     var date: [String:String]
     
-    init(id: String, name: String, archive: String, date: [String:String]) {
+    init(id: String, name: String, startDate: String, endDate: String, archive: String, date: [String:String]) {
         
         self.id = id
         self.name = name
+        self.startDate = startDate
+        self.endDate = endDate
         self.archive = archive
         self.date = date
         
@@ -32,12 +36,14 @@ class Habit {
         id = snapshotValue?["id"] as? String ?? "No id"
         name = snapshotValue?["name"] as? String ?? "No name"
         archive = snapshotValue?["archive"] as? String ?? "No archive"
+        startDate = snapshotValue?["startDate"] as? String ?? "No start date"
+        endDate = snapshotValue?["endDate"] as? String ?? "No end date"
         date = (snapshotValue?["date"] as? [String : String]) ?? ["No date":"No date"]
         
     }
 
     func serialize() -> [String:Any] {
-        return  ["id" : id, "name": name, "archive": archive, "date": date]
+        return  ["id" : id, "name": name, "startDate": startDate, "endDate": endDate, "archive": archive, "date": date]
         
     }
 
