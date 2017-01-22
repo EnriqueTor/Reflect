@@ -169,40 +169,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return todayTableView.dequeueReusableCell(withIdentifier: "habitCell")!
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            
-            let alertController = UIAlertController(title: "Delete",  message: "Are you sure you want to delete this task?.", preferredStyle: .alert)
-            
-            let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: { action -> Void in
-                
-                let habitID = self.store.todayHabits[indexPath.row].id
-                
-                self.store.todayHabits.remove(at: indexPath.row)
-                
-                self.todayTableView.deleteRows(at: [indexPath], with: .fade)
-                
-                self.database.child("habit").child(self.store.user.id).child(habitID).removeValue()
-                
-                self.todayTableView.reloadData()
-                
-                
-            })
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-                
-            })
-            
-            alertController.addAction(deleteAction)
-            alertController.addAction(cancelAction)
-            
-            self.present(alertController, animated: true, completion: nil)
-        }
-        
-        return [delete]
-    }
-    
     func configDatabase() {
         
         let habitData = database.child("habit").child(store.user.id)
@@ -289,8 +255,6 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: date).uppercased()
     }
-    
-    
     
     @IBAction func changePage(){
         scrollView.scrollRectToVisible(CGRect( x: scrollWidth * CGFloat ((pageControl?.currentPage)!), y: 0, width: scrollWidth, height: scrollHeight), animated: true)

@@ -279,7 +279,7 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
             
             self.saveButton.isEnabled = false
             
-            self.dismissVC()
+            self.dismissVC() 
             
         })
 
