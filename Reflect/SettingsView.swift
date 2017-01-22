@@ -131,22 +131,14 @@ class SettingsView: UIView, UIGestureRecognizerDelegate, MFMailComposeViewContro
             mail.setSubject("Feedback")
             mail.setMessageBody("", isHTML: true)
             
-//            mail.navigationBar.tintColor = UIColor.white
-            
-            
             while((topVC!.presentedViewController) != nil){
                 topVC = topVC!.presentedViewController
             }
             topVC?.present(mail, animated: true)
 
-            
-//            Main2ViewController().present(mail, animated: true, completion: nil)
-            
-            //            present(mail, animated: true)
-            
         } else {
-            // show failure alert
-            return 
+
+            return
         }
     }
     
