@@ -361,6 +361,7 @@
                         <outlet property="todayTableView" destination="q0s-ed-WbL" id="mfX-kO-Tyx"/>
                         <outlet property="yesterdayTableView" destination="Nlf-5g-pRP" id="EIe-oL-YXC"/>
                         <segue destination="SQM-mF-1El" kind="presentation" identifier="addHabit" modalPresentationStyle="overFullScreen" id="xLf-4j-Ccz"/>
+                        <segue destination="PX8-G0-2ik" kind="presentation" identifier="detailSegue" modalPresentationStyle="overFullScreen" id="GMV-Cz-KlV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rs8-oe-aea" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -383,6 +384,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXj-sN-WoF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2542" y="1183"/>
+        </scene>
+        <!--Detail Habit View Controller-->
+        <scene sceneID="BM3-1H-41N">
+            <objects>
+                <viewController id="PX8-G0-2ik" customClass="DetailHabitViewController" customModule="Reflect" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8nJ-zg-Jry"/>
+                        <viewControllerLayoutGuide type="bottom" id="1qV-gj-JvO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DLS-4d-Cq8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mKG-wX-3T8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3642" y="1251"/>
         </scene>
         <!--Register-->
         <scene sceneID="9DW-8a-eFX">

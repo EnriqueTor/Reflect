@@ -26,6 +26,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
     let passIcon = UIImageView()
     let registerButton = UIButton()
     let profileIcon = UIImageView()
+    let closeView = UIImageView()
     let myKeychainWrapper = KeychainWrapper()
     let database = FIRDatabase.database().reference()
     
@@ -61,7 +62,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         backgroundView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         backgroundView.backgroundColor = Constants.Color.darkGray
         backgroundView.isUserInteractionEnabled = true
-        backgroundView.addGestureRecognizer(tapDismiss)
         
         //MARK: registerView
         registerView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +72,18 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         registerView.widthAnchor.constraint(equalToConstant: 280).isActive = true
         registerView.backgroundColor = UIColor.white
         registerView.layer.cornerRadius = 3
+        
+        //MARK: closeView
+        closeView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(closeView)
+        closeView.centerXAnchor.constraint(equalTo: registerView.trailingAnchor).isActive = true
+        closeView.centerYAnchor.constraint(equalTo: registerView.topAnchor).isActive = true
+        closeView.image = Constants.Images.closeView
+        closeView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        closeView.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        closeView.isUserInteractionEnabled = true
+        closeView.addGestureRecognizer(tapDismiss)
+
         
         //MARK: titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

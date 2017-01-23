@@ -25,6 +25,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
     let database = FIRDatabase.database().reference()
     let store = DataStore.sharedInstance
     let myKeychainWrapper = KeychainWrapper()
+    let closeView = UIImageView()
     
     //MARK: - Loads
     override func viewDidLoad() {
@@ -57,7 +58,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         backgroundView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         backgroundView.backgroundColor = Constants.Color.darkGray
         backgroundView.isUserInteractionEnabled = true
-        backgroundView.addGestureRecognizer(tapDismiss)
+//        backgroundView.addGestureRecognizer(tapDismiss)
+        
         
         //MARK: loginView
         loginView.translatesAutoresizingMaskIntoConstraints = false
@@ -68,6 +70,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         loginView.widthAnchor.constraint(equalToConstant: 280).isActive = true
         loginView.backgroundColor = UIColor.white
         loginView.layer.cornerRadius = 3
+        
+        //MARK: closeView
+        closeView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(closeView)
+        closeView.centerXAnchor.constraint(equalTo: loginView.trailingAnchor).isActive = true
+        closeView.centerYAnchor.constraint(equalTo: loginView.topAnchor).isActive = true
+        closeView.image = Constants.Images.closeView
+        closeView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        closeView.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        closeView.isUserInteractionEnabled = true
+        closeView.addGestureRecognizer(tapDismiss)
         
         //MARK: titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

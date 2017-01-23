@@ -95,6 +95,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             dateLabel.text = "Calendar"
         }
         
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -139,6 +140,11 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             todayCell.reflectButton.setImage(UIImage(named: imageNumber), for: .normal)
             
             todayCell.habits = store.todayHabits
+            
+            let tapOpen = UITapGestureRecognizer(target: self, action: #selector(Main2ViewController.goToHabitDetail))
+            
+            todayCell.habitLabel.isUserInteractionEnabled = true
+            todayCell.habitLabel.addGestureRecognizer(tapOpen)
             
             return todayCell
             
@@ -200,6 +206,7 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
         performSegue(withIdentifier: "addHabit", sender: nil)
+        print("yeah!")
     }
     
     func fillToday(date: String) {
@@ -285,5 +292,10 @@ class Main2ViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
+    func goToHabitDetail() {
+        
+        performSegue(withIdentifier: "detailSegue", sender: nil)
+        
+    }
     
 }

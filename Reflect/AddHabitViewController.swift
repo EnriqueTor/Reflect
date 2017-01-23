@@ -19,6 +19,7 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
     let habitText = UITextField()
     let saveButton = UIButton()
     let cancelButton = UIButton()
+    let closeView = UIImageView()
     let database = FIRDatabase.database().reference()
     let store = DataStore.sharedInstance
     
@@ -53,9 +54,7 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
         backgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         backgroundView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         backgroundView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        backgroundView.addGestureRecognizer(tapDismiss)
-        
+        backgroundView.backgroundColor = Constants.Color.darkGray.withAlphaComponent(0.5)        
         
         //MARK: addHabitView
         addHabitView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +66,17 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
         addHabitView.backgroundColor = UIColor.white
         addHabitView.layer.cornerRadius = 3
         
+        //MARK: closeView
+        closeView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(closeView)
+        closeView.centerXAnchor.constraint(equalTo: addHabitView.trailingAnchor).isActive = true
+        closeView.centerYAnchor.constraint(equalTo: addHabitView.topAnchor).isActive = true
+        closeView.image = Constants.Images.closeView
+        closeView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        closeView.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        closeView.isUserInteractionEnabled = true
+        closeView.addGestureRecognizer(tapDismiss)
+
         //MARK: titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addHabitView.addSubview(titleLabel)
