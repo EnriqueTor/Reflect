@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, CloseViewProtocol {
     
     //MARK: - Variables
     let loginView = UIView()
@@ -72,15 +72,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIGestureRecog
         loginView.layer.cornerRadius = 3
         
         //MARK: closeView
-        closeView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(closeView)
-        closeView.centerXAnchor.constraint(equalTo: loginView.trailingAnchor).isActive = true
-        closeView.centerYAnchor.constraint(equalTo: loginView.topAnchor).isActive = true
-        closeView.image = Constants.Images.closeView
-        closeView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        closeView.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        closeView.isUserInteractionEnabled = true
-        closeView.addGestureRecognizer(tapDismiss)
+        
+        closeView(button: closeView, inside: view, close: loginView, gesture: tapDismiss)
         
         //MARK: titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

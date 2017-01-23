@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 import SwiftKeychainWrapper
 
-class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, CloseViewProtocol {
     
     //MARK: - Variables
     let registerView = UIView()
@@ -74,17 +74,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIGestureRe
         registerView.layer.cornerRadius = 3
         
         //MARK: closeView
-        closeView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(closeView)
-        closeView.centerXAnchor.constraint(equalTo: registerView.trailingAnchor).isActive = true
-        closeView.centerYAnchor.constraint(equalTo: registerView.topAnchor).isActive = true
-        closeView.image = Constants.Images.closeView
-        closeView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        closeView.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        closeView.isUserInteractionEnabled = true
-        closeView.addGestureRecognizer(tapDismiss)
-
         
+        closeView(button: closeView, inside: view, close: registerView, gesture: tapDismiss)
+
         //MARK: titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         registerView.addSubview(titleLabel)

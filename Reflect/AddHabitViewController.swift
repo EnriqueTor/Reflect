@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class AddHabitViewController: UIViewController, UITextFieldDelegate {
+class AddHabitViewController: UIViewController, UITextFieldDelegate, CloseViewProtocol {
     
     let backgroundView = UIView()
     let addHabitView = UIView()
@@ -67,15 +67,8 @@ class AddHabitViewController: UIViewController, UITextFieldDelegate {
         addHabitView.layer.cornerRadius = 3
         
         //MARK: closeView
-        closeView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(closeView)
-        closeView.centerXAnchor.constraint(equalTo: addHabitView.trailingAnchor).isActive = true
-        closeView.centerYAnchor.constraint(equalTo: addHabitView.topAnchor).isActive = true
-        closeView.image = Constants.Images.closeView
-        closeView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        closeView.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        closeView.isUserInteractionEnabled = true
-        closeView.addGestureRecognizer(tapDismiss)
+        
+        closeView(button: closeView, inside: view, close: addHabitView, gesture: tapDismiss)
 
         //MARK: titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

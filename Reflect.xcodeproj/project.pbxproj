@@ -26,6 +26,7 @@
 		BBA4C26C1E28C804006BFEAE /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C26B1E28C804006BFEAE /* KeychainWrapper.m */; };
 		BBA4C26E1E28C8B5006BFEAE /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C26D1E28C8B5006BFEAE /* DataStore.swift */; };
 		BBC77BE71E356F36003E652F /* DetailHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC77BE61E356F36003E652F /* DetailHabitViewController.swift */; };
+		BBC77BE91E364EF9003E652F /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC77BE81E364EF9003E652F /* Protocols.swift */; };
 		BBDA3B061E2F491B0022F326 /* Daily.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDA3B051E2F491B0022F326 /* Daily.swift */; };
 		BBE465D71E28B47000E7F583 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBE465D61E28B47000E7F583 /* GoogleService-Info.plist */; };
 		BBFB441F1E216AA10002E30C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFB441E1E216AA10002E30C /* AppDelegate.swift */; };
@@ -82,6 +83,7 @@
 		BBA4C26D1E28C8B5006BFEAE /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		BBA4C26F1E28CA6D006BFEAE /* Reflect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Reflect.entitlements; sourceTree = "<group>"; };
 		BBC77BE61E356F36003E652F /* DetailHabitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHabitViewController.swift; sourceTree = "<group>"; };
+		BBC77BE81E364EF9003E652F /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		BBDA3B051E2F491B0022F326 /* Daily.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Daily.swift; sourceTree = "<group>"; };
 		BBE465D61E28B47000E7F583 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BBFB441B1E216AA10002E30C /* Reflect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reflect.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +163,7 @@
 				BB5283921E25B4C200047A07 /* LoginViewController.swift */,
 				BB0675951E28585200B4EF9A /* Main2ViewController.swift */,
 				BBC77BE61E356F36003E652F /* DetailHabitViewController.swift */,
+				BBC77BE81E364EF9003E652F /* Protocols.swift */,
 				BB0675971E285D3500B4EF9A /* HabitCollectionViewCell.swift */,
 				BB1944D21E32D136007230D7 /* YesterdayTableViewCell.swift */,
 				BB5283941E25B4CD00047A07 /* RegisterViewController.swift */,
@@ -560,6 +563,7 @@
 				BB5283931E25B4C200047A07 /* LoginViewController.swift in Sources */,
 				BB0675981E285D3500B4EF9A /* HabitCollectionViewCell.swift in Sources */,
 				BBFB44271E216AA10002E30C /* Reflect.xcdatamodeld in Sources */,
+				BBC77BE91E364EF9003E652F /* Protocols.swift in Sources */,
 				BB797A581E29CC1A00ED28BE /* AddHabitViewController.swift in Sources */,
 				BB06759A1E28847800B4EF9A /* Habit.swift in Sources */,
 				BBDA3B061E2F491B0022F326 /* Daily.swift in Sources */,

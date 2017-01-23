@@ -9,11 +9,11 @@
 import UIKit
 import Firebase
 
-class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, CloseViewProtocol {
 
     
     //MARK: - Variables
-    let loginView = UIView()
+    let detailView = UIView()
     let backgroundView = UIView()
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
@@ -73,51 +73,43 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
         backgroundView.backgroundColor = Constants.Color.darkGray.withAlphaComponent(0.5)
         backgroundView.isUserInteractionEnabled = true
         
-        //MARK: loginView
-        loginView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.addSubview(loginView)
-        loginView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
-        loginView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor).isActive = true
-        loginView.heightAnchor.constraint(equalToConstant: 280).isActive = true
-        loginView.widthAnchor.constraint(equalToConstant: 280).isActive = true
-        loginView.backgroundColor = UIColor.white
-        loginView.layer.cornerRadius = 3
+        //MARK: detailView
+        detailView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.addSubview(detailView)
+        detailView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
+        detailView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor).isActive = true
+        detailView.heightAnchor.constraint(equalToConstant: 280).isActive = true
+        detailView.widthAnchor.constraint(equalToConstant: 280).isActive = true
+        detailView.backgroundColor = UIColor.white
+        detailView.layer.cornerRadius = 3
         
         //MARK: closeView
-        closeView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(closeView)
-        closeView.centerXAnchor.constraint(equalTo: loginView.trailingAnchor).isActive = true
-        closeView.centerYAnchor.constraint(equalTo: loginView.topAnchor).isActive = true
-        closeView.image = Constants.Images.closeView
-        closeView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        closeView.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        closeView.isUserInteractionEnabled = true
-        closeView.addGestureRecognizer(tapDismiss)
-
+        
+        closeView(button: closeView, inside: view, close: detailView, gesture: tapDismiss)
         
         //MARK: titleLabel
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(titleLabel)
-        titleLabel.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: loginView.topAnchor, constant: 25).isActive = true
+        detailView.addSubview(titleLabel)
+        titleLabel.centerXAnchor.constraint(equalTo: detailView.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: detailView.topAnchor, constant: 25).isActive = true
         titleLabel.text = "Started on: \(store.currentDate)"
         titleLabel.font = Constants.Font.small
         
         //MARK: subtitleLabel
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(subtitleLabel)
-        subtitleLabel.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
+        detailView.addSubview(subtitleLabel)
+        subtitleLabel.centerXAnchor.constraint(equalTo: detailView.centerXAnchor).isActive = true
         subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3).isActive = true
         subtitleLabel.text = "Run"
         subtitleLabel.font = Constants.Font.subtitle
         
 //        //MARK: loginButton
 //        loginButton.translatesAutoresizingMaskIntoConstraints = false
-//        loginView.addSubview(loginButton)
-//        loginButton.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
-//        loginButton.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -15).isActive = true
-//        loginButton.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -15).isActive = true
-//        loginButton.leadingAnchor.constraint(equalTo: loginView.leadingAnchor, constant: 15).isActive = true
+//        detailView.addSubview(loginButton)
+//        loginButton.centerXAnchor.constraint(equalTo: detailView.centerXAnchor).isActive = true
+//        loginButton.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -15).isActive = true
+//        loginButton.trailingAnchor.constraint(equalTo: detailView.trailingAnchor, constant: -15).isActive = true
+//        loginButton.leadingAnchor.constraint(equalTo: detailView.leadingAnchor, constant: 15).isActive = true
 //        loginButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
 //        loginButton.backgroundColor = Constants.Color.orangeCool
 //        loginButton.setTitle("Archive", for: .normal)
@@ -132,14 +124,14 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
         
         //MARK: thursday
         thursdayText.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(thursdayText)
-        thursdayText.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -15).isActive = true
-        thursdayText.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
+        detailView.addSubview(thursdayText)
+        thursdayText.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -15).isActive = true
+        thursdayText.centerXAnchor.constraint(equalTo: detailView.centerXAnchor).isActive = true
         thursdayText.text = "T"
         thursdayText.font = Constants.Font.small
         
         thursdayRank.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(thursdayRank)
+        detailView.addSubview(thursdayRank)
         thursdayRank.bottomAnchor.constraint(equalTo: thursdayText.topAnchor, constant: spacingLabelButton).isActive = true
         thursdayRank.centerXAnchor.constraint(equalTo: thursdayText.centerXAnchor).isActive = true
         thursdayRank.image = Constants.Images.circle2
@@ -148,14 +140,14 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
         
         //MARK: wednesday
         wednesdayText.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(wednesdayText)
-        wednesdayText.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -15).isActive = true
+        detailView.addSubview(wednesdayText)
+        wednesdayText.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -15).isActive = true
         wednesdayText.leadingAnchor.constraint(equalTo: thursdayText.leadingAnchor, constant: spacingLeft).isActive = true
         wednesdayText.text = "W"
         wednesdayText.font = Constants.Font.small
         
         wednesdayRank.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(wednesdayRank)
+        detailView.addSubview(wednesdayRank)
         wednesdayRank.bottomAnchor.constraint(equalTo: wednesdayText.topAnchor, constant: spacingLabelButton).isActive = true
         wednesdayRank.centerXAnchor.constraint(equalTo: wednesdayText.centerXAnchor).isActive = true
         wednesdayRank.image = Constants.Images.circle5
@@ -164,14 +156,14 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
 
         //MARK: tuesday
         tuesdayText.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(tuesdayText)
-        tuesdayText.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -15).isActive = true
+        detailView.addSubview(tuesdayText)
+        tuesdayText.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -15).isActive = true
         tuesdayText.leadingAnchor.constraint(equalTo: wednesdayText.leadingAnchor, constant: spacingLeft).isActive = true
         tuesdayText.text = "T"
         tuesdayText.font = Constants.Font.small
         
         tuesdayRank.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(tuesdayRank)
+        detailView.addSubview(tuesdayRank)
         tuesdayRank.bottomAnchor.constraint(equalTo: tuesdayText.topAnchor, constant: spacingLabelButton).isActive = true
         tuesdayRank.centerXAnchor.constraint(equalTo: tuesdayText.centerXAnchor).isActive = true
         tuesdayRank.image = Constants.Images.circle2
@@ -180,14 +172,14 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
 
         //MARK: monday
         mondayText.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(mondayText)
-        mondayText.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -15).isActive = true
+        detailView.addSubview(mondayText)
+        mondayText.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -15).isActive = true
         mondayText.leadingAnchor.constraint(equalTo: tuesdayText.leadingAnchor, constant: spacingLeft).isActive = true
         mondayText.text = "M"
         mondayText.font = Constants.Font.small
         
         mondayRank.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(mondayRank)
+        detailView.addSubview(mondayRank)
         mondayRank.bottomAnchor.constraint(equalTo: mondayText.topAnchor, constant: spacingLabelButton).isActive = true
         mondayRank.centerXAnchor.constraint(equalTo: mondayText.centerXAnchor).isActive = true
         mondayRank.image = Constants.Images.circle4
@@ -196,14 +188,14 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
         
         //MARK: friday
         fridayText.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(fridayText)
-        fridayText.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -15).isActive = true
+        detailView.addSubview(fridayText)
+        fridayText.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -15).isActive = true
         fridayText.leadingAnchor.constraint(equalTo: thursdayText.leadingAnchor, constant: spacingRight).isActive = true
         fridayText.text = "F"
         fridayText.font = Constants.Font.small
         
         fridayRank.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(fridayRank)
+        detailView.addSubview(fridayRank)
         fridayRank.bottomAnchor.constraint(equalTo: fridayText.topAnchor, constant: spacingLabelButton).isActive = true
         fridayRank.centerXAnchor.constraint(equalTo: fridayText.centerXAnchor).isActive = true
         fridayRank.image = Constants.Images.circle4
@@ -212,14 +204,14 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
         
         //MARK: saturday
         saturdayText.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(saturdayText)
-        saturdayText.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -15).isActive = true
+        detailView.addSubview(saturdayText)
+        saturdayText.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -15).isActive = true
         saturdayText.leadingAnchor.constraint(equalTo: fridayText.leadingAnchor, constant: spacingRight).isActive = true
         saturdayText.text = "S"
         saturdayText.font = Constants.Font.small
         
         saturdayRank.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(saturdayRank)
+        detailView.addSubview(saturdayRank)
         saturdayRank.bottomAnchor.constraint(equalTo: saturdayText.topAnchor, constant: spacingLabelButton).isActive = true
         saturdayRank.centerXAnchor.constraint(equalTo: saturdayText.centerXAnchor).isActive = true
         saturdayRank.image = Constants.Images.circle1
@@ -228,14 +220,14 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
         
         //MARK: sunday
         sundayText.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(sundayText)
-        sundayText.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -15).isActive = true
+        detailView.addSubview(sundayText)
+        sundayText.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -15).isActive = true
         sundayText.leadingAnchor.constraint(equalTo: saturdayText.leadingAnchor, constant: spacingRight).isActive = true
         sundayText.text = "S"
         sundayText.font = Constants.Font.small
         
         sundayRank.translatesAutoresizingMaskIntoConstraints = false
-        loginView.addSubview(sundayRank)
+        detailView.addSubview(sundayRank)
         sundayRank.bottomAnchor.constraint(equalTo: sundayText.topAnchor, constant: spacingLabelButton).isActive = true
         sundayRank.centerXAnchor.constraint(equalTo: sundayText.centerXAnchor).isActive = true
         sundayRank.image = Constants.Images.circle1
@@ -311,7 +303,7 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if touch.view!.isDescendant(of: loginView) {
+        if touch.view!.isDescendant(of: detailView) {
             return false
         }
         return true
