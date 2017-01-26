@@ -17,10 +17,10 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
     let backgroundView = UIView()
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
-//    let loginButton = UIButton()
     let database = FIRDatabase.database().reference()
     let store = DataStore.sharedInstance
     let myKeychainWrapper = KeychainWrapper()
+    
     let mondayText = UILabel()
     let tuesdayText = UILabel()
     let wednesdayText = UILabel()
@@ -28,6 +28,7 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
     let fridayText = UILabel()
     let saturdayText = UILabel()
     let sundayText = UILabel()
+    
     let mondayRank = UIImageView()
     let tuesdayRank = UIImageView()
     let wednesdayRank = UIImageView()
@@ -35,6 +36,7 @@ class DetailHabitViewController: UIViewController, UITextFieldDelegate, UIGestur
     let fridayRank = UIImageView()
     let saturdayRank = UIImageView()
     let sundayRank = UIImageView()
+    
     let closeView = UIImageView()
     
     
